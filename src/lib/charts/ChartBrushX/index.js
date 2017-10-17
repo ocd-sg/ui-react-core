@@ -23,8 +23,13 @@ class ChartBrushX extends PureComponent<Props> {
 
   componentDidUpdate () {
     const { xScale, yScale } = this.props
-    const start = [xScale(xScale.domain()[0]), yScale(yScale.domain()[1])]
-    const end = [xScale(xScale.domain()[1]), yScale(yScale.domain()[0])]
+    const domains = {
+      x: xScale.domain(),
+      y: yScale.domain()
+    }
+    const offset = xScale.bandwidth ? xScale.bandwidth() : 0
+    const start = [xScale(domains.x[0]), yScale(domains.y[domains.y.length - 1])]
+    const end = [xScale(domains.x[domains.x.length - 1]) + offset, yScale(domains.y[0])]
 
     d3.select(this.refs.brush)
       .call(d3.brushX()
@@ -42,25 +47,54 @@ class ChartBrushX extends PureComponent<Props> {
 
   handleBrush = () => {
     if (d3.event.sourceEvent.type === 'brush') return
+    return this.props.xScale.bandwidth
+      ? this.handleBrushOrdinal()
+      : this.handleBrushLinear()
+  }
+
+  // FIXME: we actually don’t need `data` to do this, we should be able to resolve it from the scales alone
+  handleBrushLinear = () => {
     const { data, xScale } = this.props
     const x = data.map(({ x }) => x).concat(xScale.domain()[1])
-    const d0 = d3.event.selection.map(xScale.invert)
-    const d1 = d0.map((d) =>
+    const extent = d3.event.selection.map(xScale.invert)
+    const selection = extent.map((d) =>
       x.reduce((a, b) =>
         Math.abs(a - d) < Math.abs(b - d) ? a : b
       )
     )
 
-    d3.select(this.refs.brush).call(d3.event.target.move, d1.map(xScale))
+    d3.select(this.refs.brush).call(d3.event.target.move, selection.map(xScale))
+  }
+
+  handleBrushOrdinal = () => {
+    const { xScale } = this.props
+    const bandwidth = xScale.bandwidth()
+    const extent = d3.event.selection.map((x) => x - bandwidth / 2)
+    const selection = xScale.domain().filter((x) => xScale(x) > extent[0] && xScale(x) < extent[1])
+
+    d3.select(this.refs.brush).call(
+      d3.event.target.move,
+      selection.length
+        ? [
+          xScale(selection[0]),
+          xScale(selection[selection.length - 1]) + bandwidth
+        ]
+        : []
+    )
   }
 
   handleBrushEnd = () => {
     const { xScale, onChange } = this.props
     if (!d3.event.sourceEvent) return
     if (!d3.event.selection) return onChange(null)
-    const d0 = d3.event.selection.map(xScale.invert)
-
-    return onChange(d0)
+    return onChange(
+      xScale.bandwidth
+        ? xScale.domain().filter((x) =>
+          xScale(x) > d3.event.selection[0] - xScale.bandwidth() / 2 &&
+          xScale(x) < d3.event.selection[1] - xScale.bandwidth() / 2
+        )
+        : d3.event.selection.map(xScale.invert)
+    )
   }
 }
 

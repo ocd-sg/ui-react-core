@@ -26,7 +26,7 @@ const Button = ({
   <button
     className={[
       'pv1 ph2 bn outline-0',
-      'ttu f6',
+      'ttu f7 lh-solid',
       'bg-black-50 white-90',
       primary ? 'bg-blue' : '',
       disabled ? 'white-50 o-50' : '',

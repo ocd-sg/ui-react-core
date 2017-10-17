@@ -54,11 +54,13 @@ class ChartFrame extends PureComponent<Props, State> {
 
   getDataTypes () {
     const { xDomain, yDomain } = this.props
-    const xDataType = xDomain[0] instanceof Date ? 'date'
+    const xDataType = xDomain[0] instanceof Date
+      ? 'date'
       : typeof xDomain[0] === 'string'
         ? 'string'
         : 'number'
-    const yDataType = yDomain[0] instanceof Date ? 'date'
+    const yDataType = yDomain[0] instanceof Date
+      ? 'date'
       : typeof yDomain[0] === 'string'
         ? 'string'
         : 'number'

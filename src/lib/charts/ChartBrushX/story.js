@@ -57,7 +57,7 @@ storiesOf('charts', module)
       </div>
     )
   })
-  .add('(x) ChartBrushX: ordinal', () => {
+  .add('ChartBrushX: ordinal', () => {
     const data = Array(20).fill(0).map((_, index) => ({x: index, y: Math.pow(index + 1, 3)}))
     const max = {
       y: data.map(({ y }) => y).reduce((a, b) => Math.max(a, b), 0)
