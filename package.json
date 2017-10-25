@@ -48,8 +48,6 @@
     "react-hot-loader": "^3.0.0-beta.7",
     "sinon": "^4.0.0",
     "style-loader": "^0.18.2",
-    "tachyons": "^4.8.1",
-    "tachyons-svg": "^1.0.1",
     "ui-tachyons-dark": "github:ocd-sg/ui-tachyons-dark",
     "webpack": "^3.6.0",
     "webpack-dashboard": "^1.0.0-7",

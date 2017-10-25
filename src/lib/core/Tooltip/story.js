@@ -6,6 +6,6 @@ import Tooltip from './index'
 storiesOf('core', module)
   .add('Tooltip', () => (
     <Tooltip opened>
-      <p className='sans-serif'>Hello Sunshine</p>
+      <p>Hello Sunshine</p>
     </Tooltip>
   ))

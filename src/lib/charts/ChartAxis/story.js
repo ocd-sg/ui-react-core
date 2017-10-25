@@ -20,7 +20,7 @@ storiesOf('charts', module)
     }
 
     return (
-      <div className='ba b--black-50'>
+      <div className='ba b--foreground-50'>
         <ChartFrame {...config}>
           <ChartAxis position='right' />
           <ChartAxis position='bottom' />
@@ -42,7 +42,7 @@ storiesOf('charts', module)
     }
 
     return (
-      <div className='ba b--black-50'>
+      <div className='ba b--foreground-50'>
         <ChartFrame {...config}>
           <ChartAxis position='right' />
           <ChartAxis position='bottom' />

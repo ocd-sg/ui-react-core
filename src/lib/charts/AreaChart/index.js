@@ -31,7 +31,7 @@ const AreaChart = ({ className, data: _data, xScale, yScale, wScale, hScale, pri
       className
     ].join(' ')}
     >
-      <path className='fill-black-50 stroke-transparent' d={line(data)} />
+      <path className='fill-foreground-90 stroke-transparent' d={line(data)} />
     </g>
   )
 }

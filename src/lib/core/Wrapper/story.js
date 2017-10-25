@@ -7,8 +7,8 @@ import Wrapper from './index'
 storiesOf('core', module)
   .add('Wrapper', () => (
     <Wrapper>
-      <p className='sans-serif'>A `div`less wrapper</p>
-      <p className='sans-serif'>for containing</p>
-      <p className='sans-serif'>children</p>
+      <p>A `div`less wrapper</p>
+      <p>for containing</p>
+      <p>children</p>
     </Wrapper>
   ))

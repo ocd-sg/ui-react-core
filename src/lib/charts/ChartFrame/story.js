@@ -11,7 +11,7 @@ const ChartDebug = ({ xScale, yScale, wScale, hScale }: {xScale: Function, yScal
       width={wScale(1)}
       height={hScale(1)}
     />
-    <text className='sans-serif' dy='1em'>
+    <text dy='1em'>
       A container for charts, dimensions: {xScale.range()[1]} by {yScale.range()[0]}
     </text>
   </g>

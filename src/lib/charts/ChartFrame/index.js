@@ -115,6 +115,7 @@ class ChartFrame extends PureComponent<Props, State> {
         ref='frame'
         className={[
           'w-100 h-100 db',
+          'bg-background-90',
           className
         ].join(' ')}
       >

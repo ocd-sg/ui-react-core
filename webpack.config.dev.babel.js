@@ -40,5 +40,8 @@ module.exports = {
   },
   plugins: [
     new DashboardPlugin()
-  ]
+  ],
+  resolve: {
+    symlinks: false
+  }
 }

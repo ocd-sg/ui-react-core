@@ -27,9 +27,9 @@ const Button = ({
     className={[
       'pv1 ph2 bn outline-0',
       'ttu f7 lh-solid',
-      'bg-background-80 foreground-80',
-      primary ? 'bg-primary-80' : '',
-      disabled ? 'foreground-50 o-50' : '',
+      'text-normal-100 bg-foreground-60',
+      primary ? 'bg-primary-100' : '',
+      disabled ? 'text-normal-90 o-50' : '',
       _margins ? ' mh1' : '',
       className
     ].join(' ')}

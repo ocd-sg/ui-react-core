@@ -75,15 +75,21 @@ class ChartAxis extends PureComponent<Props> {
         break
     }
 
-    d3.select(node)
+    const g = d3.select(node)
       // .classed(styles.labeled, labeled)
       // .classed(styles.ticked, ticked)
       .attr('transform', transform)
       .call(axis)
+    g.selectAll('.domain')
+      .classed('stroke-foreground-30', true)
+    g.selectAll('.tick line')
+      .classed('stroke-foreground-30', true)
+    g.selectAll('.tick text')
+      .classed('fill-foreground-60', true)
   }
 
   render () {
-    return <g className='sans-serif f7' ref='axis' />
+    return <g className='f8' ref='axis' />
   }
 }
 

@@ -8,8 +8,9 @@ import Button from '../Button'
 storiesOf('core', module)
   .add('ButtonGroup', () => (
     <ButtonGroup>
-      <Button label='One' onClick={action('onClick')} />
-      <Button label='Two' onClick={action('onClick')} />
-      <Button label='Three' onClick={action('onClick')} />
+      <Button label='Primary' primary onClick={action('onClick')} />
+      <Button label='Default' onClick={action('onClick')} />
+      <Button label='Disabled' disabled onClick={action('onClick')} />
+      <Button label='Primary Disabled' primary disabled onClick={action('onClick')} />
     </ButtonGroup>
   ))
