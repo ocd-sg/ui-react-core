@@ -49,7 +49,7 @@ class Tooltip extends PureComponent<Props, State> {
           <div
             className={[
               'absolute pa1 shadow-1',
-              'bg-black-70 white-90',
+              'bg-background-90 foreground-80',
               vertical === 'top' ? 'bottom-1' : 'top-1',
               horizontal === 'left' ? 'right-1' : 'left-1'
             ].join(' ')}

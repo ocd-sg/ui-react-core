@@ -3,7 +3,6 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 
-import 'tachyons'
 import ChartBrushX from './index'
 import ChartFrame from '../ChartFrame'
 import ChartAxis from '../ChartAxis'

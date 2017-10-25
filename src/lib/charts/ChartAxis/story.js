@@ -2,7 +2,6 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 
-import 'tachyons'
 import ChartAxis from './index'
 import ChartFrame from '../ChartFrame'
 

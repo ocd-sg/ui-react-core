@@ -1,7 +1,6 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 
-import 'tachyons'
 import Portal from './index'
 
 storiesOf('core', module)

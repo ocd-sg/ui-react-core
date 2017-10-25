@@ -2,7 +2,6 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 
-import 'tachyons'
 import ChartFrame from './index'
 
 const ChartDebug = ({ xScale, yScale, wScale, hScale }: {xScale: Function, yScale: Function, wScale: Function, hScale: Function}) => (

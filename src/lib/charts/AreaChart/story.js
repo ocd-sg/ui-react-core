@@ -2,8 +2,6 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 
-import 'tachyons'
-import 'tachyons-svg'
 import AreaChart from './index'
 import ChartFrame from '../ChartFrame'
 import ChartAxis from '../ChartAxis'
