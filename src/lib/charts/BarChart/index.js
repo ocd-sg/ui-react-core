@@ -36,7 +36,7 @@ const BarChart = ({ className, data: _data, xScale, yScale, wScale, hScale, inte
         data.map(({ x, y }, i) => (
           <g key={i} transform={`translate(${xScale(x) + 1} ${yScale(y)})`}>
             <rect
-              className='fill-foreground-90 stroke-transparent'
+              className='fill-foreground-90 stroke-transparent sr-crispedges'
               width={width - 1}
               height={hScale(y)}
             />

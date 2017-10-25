@@ -7,11 +7,11 @@ import ChartFrame from './index'
 const ChartDebug = ({ xScale, yScale, wScale, hScale }: {xScale: Function, yScale: Function, wScale: Function, hScale: Function}) => (
   <g transform={`translate(${xScale(0)}, ${yScale(1)})`}>
     <rect
-      fill='gray'
+      className='fill-background-70'
       width={wScale(1)}
       height={hScale(1)}
     />
-    <text dy='1em'>
+    <text className='fill-foreground-100' dy='1em'>
       A container for charts, dimensions: {xScale.range()[1]} by {yScale.range()[0]}
     </text>
   </g>

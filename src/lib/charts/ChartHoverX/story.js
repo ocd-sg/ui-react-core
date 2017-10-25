@@ -8,6 +8,7 @@ import ChartFrame from '../ChartFrame'
 import ChartAxis from '../ChartAxis'
 import BarChart from '../BarChart'
 import LineChart from '../LineChart'
+import Card from '../../core/Card'
 
 storiesOf('charts', module)
   .add('ChartHoverX: basic', () => {
@@ -24,13 +25,13 @@ storiesOf('charts', module)
     }
 
     return (
-      <div className='ba b--foreground-50'>
+      <Card>
         <ChartFrame {...config}>
           <BarChart data={data} />
           <ChartAxis position='bottom' />
           <ChartHoverX data={data} onHover={action('onHover')} />
         </ChartFrame>
-      </div>
+      </Card>
     )
   })
   .add('ChartHoverX: line chart', () => {
@@ -47,13 +48,13 @@ storiesOf('charts', module)
     }
 
     return (
-      <div className='ba b--foreground-50'>
+      <Card>
         <ChartFrame {...config}>
           <LineChart data={data} />
           <ChartAxis position='bottom' />
           <ChartHoverX data={data} onHover={action('onHover')} />
         </ChartFrame>
-      </div>
+      </Card>
     )
   })
   .add('(x) ChartHoverX: ordinal', () => {
@@ -70,12 +71,12 @@ storiesOf('charts', module)
     }
 
     return (
-      <div className='ba b--foreground-50'>
+      <Card>
         <ChartFrame {...config}>
           <BarChart data={data} />
           <ChartAxis position='bottom' />
           <ChartHoverX data={data} onHover={action('onHover')} />
         </ChartFrame>
-      </div>
+      </Card>
     )
   })

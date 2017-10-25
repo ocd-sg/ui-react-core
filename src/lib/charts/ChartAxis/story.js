@@ -4,6 +4,7 @@ import { storiesOf } from '@storybook/react'
 
 import ChartAxis from './index'
 import ChartFrame from '../ChartFrame'
+import Card from '../../core/Card'
 
 storiesOf('charts', module)
   .add('ChartAxis: basic', () => {
@@ -20,12 +21,12 @@ storiesOf('charts', module)
     }
 
     return (
-      <div className='ba b--foreground-50'>
+      <Card>
         <ChartFrame {...config}>
           <ChartAxis position='right' />
           <ChartAxis position='bottom' />
         </ChartFrame>
-      </div>
+      </Card>
     )
   })
   .add('ChartAxis: ordinal', () => {
@@ -42,11 +43,11 @@ storiesOf('charts', module)
     }
 
     return (
-      <div className='ba b--foreground-50'>
+      <Card>
         <ChartFrame {...config}>
           <ChartAxis position='right' />
           <ChartAxis position='bottom' />
         </ChartFrame>
-      </div>
+      </Card>
     )
   })

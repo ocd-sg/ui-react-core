@@ -5,6 +5,7 @@ import { storiesOf } from '@storybook/react'
 import AreaChart from './index'
 import ChartFrame from '../ChartFrame'
 import ChartAxis from '../ChartAxis'
+import Card from '../../core/Card'
 
 storiesOf('charts', module)
   .add('AreaChart: basic', () => {
@@ -21,13 +22,13 @@ storiesOf('charts', module)
     }
 
     return (
-      <div className='ba b--foreground-50'>
+      <Card>
         <ChartFrame {...config}>
           <AreaChart data={data} />
           <ChartAxis position='right' />
           <ChartAxis position='bottom' />
         </ChartFrame>
-      </div>
+      </Card>
     )
   })
   .add('AreaChart: object values', () => {
@@ -44,13 +45,13 @@ storiesOf('charts', module)
     }
 
     return (
-      <div className='ba b--foreground-50'>
+      <Card>
         <ChartFrame {...config}>
           <AreaChart data={data} />
           <ChartAxis position='right' />
           <ChartAxis position='bottom' />
         </ChartFrame>
-      </div>
+      </Card>
     )
   })
   .add('AreaChart: ordinal values', () => {
@@ -67,12 +68,12 @@ storiesOf('charts', module)
     }
 
     return (
-      <div className='ba b--foreground-50'>
+      <Card>
         <ChartFrame {...config}>
           <AreaChart data={data} />
           <ChartAxis position='right' />
           <ChartAxis position='bottom' />
         </ChartFrame>
-      </div>
+      </Card>
     )
   })

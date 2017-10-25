@@ -4,22 +4,24 @@ import type { Node, Element } from 'react'
 
 export type Props = {
   className: string,
-  children?: Node
+  children: Node,
+  _margins: boolean
 }
 
 const ButtonGroup = ({
   className,
-  children
+  children,
+  _margins
 }: Props): Element<any> => (
   <div
     className={[
-      'mh1',
+      _margins ? 'mh1' : '',
       className
     ].join(' ')}
   >
     {
-      children.map((child) =>
-        React.cloneElement(child, {_margins: false})
+      children.map((child, index) =>
+        React.cloneElement(child, {key: index, _margins: false})
       )
     }
   </div>
@@ -27,7 +29,8 @@ const ButtonGroup = ({
 
 ButtonGroup.defaultProps = {
   className: '',
-  children: null
+  children: [],
+  _margins: true
 }
 
 ButtonGroup.displayName = 'ButtonGroup'

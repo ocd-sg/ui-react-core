@@ -9,8 +9,8 @@ export type Props = {
   hScale: Function,
   position: 'top' | 'bottom' | 'left' | 'right',
   inset?: boolean,
-  // labeled?: boolean,
-  // ticked?: boolean,
+  labeled?: boolean,
+  ticked?: boolean,
   ticks?: number | Function,
   tickFormat?: string
 }
@@ -39,8 +39,7 @@ class ChartAxis extends PureComponent<Props> {
   componentDidUpdate () { this.renderAxis() }
 
   renderAxis () {
-    // const { xScale, yScale, wScale, hScale, position, inset, labeled, ticked, ticks, tickFormat } = this.props
-    const { xScale, yScale, wScale, hScale, position, inset, ticks, tickFormat } = this.props
+    const { xScale, yScale, wScale, hScale, position, inset, labeled, ticked, ticks, tickFormat } = this.props
     const { direction, flow } = POSITIONS[position]
     const node = this.refs.axis
     const axis = AXES[direction][inset ? flow * -1 : flow]()
@@ -81,11 +80,13 @@ class ChartAxis extends PureComponent<Props> {
       .attr('transform', transform)
       .call(axis)
     g.selectAll('.domain')
-      .classed('stroke-foreground-30', true)
+      .classed('stroke-foreground-30 sr-crispedges', true)
     g.selectAll('.tick line')
-      .classed('stroke-foreground-30', true)
+      .classed('stroke-foreground-30 sr-crispedges', true)
+      .classed('dn', !ticked)
     g.selectAll('.tick text')
       .classed('fill-foreground-60', true)
+      .classed('dn', !labeled)
   }
 
   render () {
@@ -100,8 +101,8 @@ ChartAxis.defaultProps = {
   hScale: () => 0,
   position: 'right',
   inset: false,
-  // labeled: true,
-  // ticked: true,
+  labeled: true,
+  ticked: true,
   tickFormat: null
 }
 
