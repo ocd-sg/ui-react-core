@@ -7,13 +7,13 @@
 	1. [Structure](#structure)
 1. [Basic Usage](#basic-usage)
 1. [Design Principles](#design-principles)
-	1. [Components](#components)
-	1. [Reducers and State](#reducers-and-state)
-	1. [AJAX and Side Effects](#ajax-and-side-effects)
+	1. [Self-Contained Components](#self-contained-components)
+	1. [Tachyons-Driven Styling](#tachyons-driven-styling)
+1. [Workflow](#workflow)
 
 ## Requirements
-- node `^4.5.0`
-- yarn `^0.17.0` or npm `^3.0.0`
+- node
+- npm or yarn
 
 ## Project Setup
 
@@ -38,6 +38,9 @@ Test:
 - AVA
 - Enzyme
 - Sinon
+
+Development:
+- React Storybook
 
 Application:
 - React
@@ -81,3 +84,20 @@ npm run build:app
 ```
 
 ## Design Principles
+
+### Self-Contained Components
+
+Notice under the [Structure](#structure) section that the component directory consists of only three `js` files. That’s all we need to start on developing a components.
+
+### Tachyons-Driven Styling
+
+`Tachyons` proclaims itself to be an implementation of functional CSS. Well, CSS classes are composable to begin with, so what `Tachyons` brings to the table is the design decision of atomic CSS classes and also the idea of immutability within these classes. It also allows us to have a components library that is completely free of CSS dependencies. Although there is still a development dependency on `ui-tachyons-dark`, there are no CSS dependencies in production, and this we can easily theme and deploy other `Tachyons` variants and extensions.
+
+## Workflow
+
+1. create component directory
+1. create `index.js`, `story.js` & `test.js`
+1. create stories in `story.js` and run them though `React Storybook`
+1. work on `index.js`
+1. create more stories and repeat
+1. create tests in `test.js` and repeat
