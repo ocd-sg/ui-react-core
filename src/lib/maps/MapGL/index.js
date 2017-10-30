@@ -41,7 +41,10 @@ class MapGL extends PureComponent<Props> {
     if (fit) this.mapElement.fitBounds(fit, {padding: 10})
 
     this.forceUpdate()
-    setTimeout(() => this.mapElement.resize(), 0)
+    setTimeout(() => {
+      this.mapElement.resize()
+      document.querySelector('.mapboxgl-missing-css').remove()
+    }, 0)
   }
 
   componentWillUpdate (nextProps) {

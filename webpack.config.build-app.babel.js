@@ -13,7 +13,22 @@ const {
 const config = {
   ...baseConfig,
   module: {
-    ...baseConfig.module
+    ...baseConfig.module,
+    loaders: [
+      ...baseConfig.loaders,
+      {
+        test: /(\.css)$/,
+        include: resolve(__dirname, 'node_modules'),
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader'
+          }
+        ]
+      }
+    ]
   },
   entry: [
     resolve(__dirname, 'src/app/index.js')

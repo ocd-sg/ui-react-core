@@ -13,14 +13,17 @@ const Card = ({
   className,
   children,
   header,
-  footer
+  footer,
+  ...props
 }: Props): Element<any> => (
   <div
     className={[
       'text-normal-100 bg-background-90',
-      'ma2 br1',
+      'br1',
+      className.match('ma0') ? '' : 'ma2',
       className
     ].join(' ')}
+    {...props}
   >
     {
       header
@@ -31,7 +34,7 @@ const Card = ({
         )
         : null
     }
-    <div className='pa2 f6'>
+    <div className='w-100 h-100 pa2 f6'>
       { children }
     </div>
     {
@@ -50,8 +53,7 @@ Card.defaultProps = {
   className: '',
   children: [],
   header: null,
-  footer: null,
-  _margins: true
+  footer: null
 }
 
 Card.displayName = 'Card'
