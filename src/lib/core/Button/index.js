@@ -23,7 +23,7 @@ const Button = ({
 }: Props): Element<any> => (
   <button
     className={[
-      'pv1 ph2 bn outline-0',
+      'pv1 ph2 bn outline-0 br0',
       'text-normal-100 bg-foreground-60',
       'ttu f7 lh-solid',
       primary ? 'bg-primary-100' : '',

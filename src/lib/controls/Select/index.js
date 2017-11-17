@@ -1,7 +1,13 @@
 // @flow
 import React, { PureComponent } from 'react'
+import fuzzysearch from 'fuzzysearch'
 
-import Autocomplete from 'react-autocomplete'
+// const KEY_BACKSPACE = 8
+// const KEY_ESC = 27
+// const KEY_TAB = 9
+const KEY_ENTER = 13
+const KEY_UP = 38
+const KEY_DOWN = 40
 
 type Option = {
   label: string,
@@ -13,113 +19,146 @@ export type Props = {
   placeholder: string,
   value: string | number | Array<string | number>,
   options: Array<Option>,
-  searchable: boolean,
-  multiple: boolean,
   onChange: Function
 }
 
 type State = {
-  value: string
+  value: string,
+  focused: boolean
 }
 
 class Select extends PureComponent<Props, State> {
   state = {
-    value: ''
+    value: '',
+    options: null,
+    highlighted: null
   }
 
-  componentWillMount () {
+  componentDidMount () {
     this.setValueFromProps()
   }
 
-  componentWillReceiveProps () {
-    this.setValueFromProps()
+  componentWillUpdate (props) {
+    if (this.props.value !== props.value) this.setValueFromProps()
   }
 
   setValueFromProps = () => {
-    const { options } = this.props
-    const option = options.find((option) => option.value === this.props.value) || null
+    const { value, options } = this.props
+    const option = options.find((option) => option.value === value)
 
-    if (option) {
-      this.setState({value: option.label})
-    }
+    this.setState({
+      value: option ? option.label : ''
+    })
   }
 
-  getItemValue = ({ label }) => label
-
-  renderInput = (props) => (
-    <input
-      type='text'
-      className={[
-        'bg-foreground-60 pv1 ph2 bn f7 lh-solid outline-0',
-        !this.props.searchable && this.state.value === '' ? 'text-transparent' : 'text-normal-100'
-      ].join(' ')}
-      placeholder={this.props.placeholder}
-      {...props}
-    />
-  )
-
-  renderMenu = (options) => (
-    <div className='bg-foreground-60' children={options} />
-  )
-
-  renderItem = ({ label, value }: Option, isHighlighted) => (
-    <div
-      key={value}
-      className={[
-        'pv1 ph2 f7 ln-solid',
-        isHighlighted ? 'bg-primary-100' : ''
-      ].join(' ')}
-    >
-      {label}
-    </div>
-  )
-
-  shouldItemRender = (option, value) =>
-    this.props.searchable
-      ? option.label.match(value)
-      : true
-
-  render () {
+  renderInput = () => {
     const { value } = this.state
-    const { className, options } = this.props
+    const { placeholder, options } = this.props
+
     return (
-      <Autocomplete
-        className={className}
+      <input
+        ref='input'
+        type='text'
+        placeholder={placeholder}
         value={value}
-        items={options}
-        getItemValue={this.getItemValue}
-        shouldItemRender={this.shouldItemRender}
-        renderInput={this.renderInput}
-        inputProps={{
-          onBlur: this.handleBlur
-        }}
-        renderMenu={this.renderMenu}
-        renderItem={this.renderItem}
-        onChange={this.handleChange}
-        onSelect={this.handleSelect}
+        onKeyDown={this.handleInputKeyDown}
+        onChange={this.handleInputChange}
+        onFocus={this.handleInputFocus}
+        onBlur={this.handleInputBlur}
       />
     )
   }
 
-  handleBlur = () =>
-    this.setValueFromProps()
+  renderList = () => {
+    const { options } = this.state
 
-  handleChange = (_, value) =>
-    this.props.searchable
-      ? this.setState({ value })
-      : null
-
-  handleSelect = (_, option) => {
-    const { onChange } = this.props
-    this.setValueFromProps()
-    onChange(option.value)
+    return (
+      <div
+        className='absolute bg-background-100 foreground-100 left-0 right-0'
+        style={{top: '100%'}}
+      >
+        {options.map(this.renderListItem)}
+      </div>
+    )
   }
+
+  renderListItem = (item, index) => {
+    const { highlighted } = this.state
+    const { label, value } = item
+
+    return (
+      <div
+        key={value}
+        className={[
+          index === highlighted ? 'bg-background-70' : ''
+        ].join(' ')}
+        onMouseDown={this.handleListItemSelect(value)}
+      >
+        {label}
+      </div>
+    )
+  }
+
+  render () {
+    const { options } = this.state
+    const { className } = this.props
+    return (
+      <div className={[
+        'dib relative',
+        className
+      ].join(' ')}>
+        {this.renderInput()}
+        {options && this.renderList()}
+      </div>
+    )
+  }
+
+  handleInputKeyDown = (evt) => {
+    const { highlighted, options } = this.state
+    const { onChange } = this.props
+    const { keyCode } = evt
+    if (keyCode === KEY_DOWN) {
+      this.setState({highlighted: typeof highlighted === 'number' ? Math.min(highlighted + 1, options.length - 1) : 0})
+      evt.stopPropagation()
+      evt.preventDefault()
+    }
+    else if (keyCode === KEY_UP) {
+      this.setState({highlighted: typeof highlighted === 'number' ? Math.max(highlighted - 1, 0) : 0})
+      evt.stopPropagation()
+      evt.preventDefault()
+    }
+    if (keyCode === KEY_ENTER) {
+      if (options[highlighted]) {
+        const { value } = options[highlighted]
+        onChange(value)
+        this.refs.input.blur()
+      }
+      evt.stopPropagation()
+      evt.preventDefault()
+    }
+  }
+
+  handleInputChange = (evt) => this.setState({
+    value: evt.target.value,
+    options: this.props.options.filter(({ label }) => fuzzysearch(evt.target.value, label))
+  })
+
+  handleInputFocus = () => this.setState({options: this.props.options})
+
+  handleInputBlur = () => {
+    this.setState({
+      options: null,
+      highlighted: null
+    }, this.setValueFromProps)
+  }
+
+  handleListItemSelect = (value) => () => this.props.onChange(value)
 }
 
 Select.defaultProps = {
   className: '',
   placeholder: 'Search…',
-  value: null,
+  value: '',
   options: [],
   searchable: false,
   onChange: () => {}
