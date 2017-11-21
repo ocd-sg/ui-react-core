@@ -19,6 +19,7 @@ export type Props = {
   placeholder: string,
   value: string | number | Array<string | number>,
   options: Array<Option>,
+  focused: boolean,
   onHighlight: Function,
   onBlur: Function,
   onChange: Function,
@@ -39,10 +40,12 @@ class Select extends PureComponent<Props, State> {
 
   componentDidMount () {
     this.setValueFromProps()
+    this.setFocus()
   }
 
-  componentWillUpdate (props) {
+  componentDidUpdate (props) {
     if (this.props.value !== props.value) this.setValueFromProps()
+    if (this.props.focused || this.props.focused !== props.focused) this.setFocus()
   }
 
   setValueFromProps = () => {
@@ -54,6 +57,12 @@ class Select extends PureComponent<Props, State> {
     })
   }
 
+  setFocus = () => {
+    const { focused } = this.props
+    if (focused) this.refs.input.focus()
+    else this.refs.input.blur()
+  }
+
   renderInput = () => {
     const { value } = this.state
     const { placeholder } = this.props
@@ -61,9 +70,9 @@ class Select extends PureComponent<Props, State> {
     return (
       <input
         className={[
-          'w-100 pv1 ph2 outline-0 bn br0',
+          'w-100 pv2 ph2 outline-0 bn br0',
           'bg-background-100',
-          'ttu f7 lh-solid',
+          'f5 lh-solid',
           'relative z-1'
         ].join(' ')}
         ref='input'
@@ -99,9 +108,9 @@ class Select extends PureComponent<Props, State> {
       <div
         key={value}
         className={[
-          'pv1 ph2',
-          'ttu f7 lh-solid',
-          index === highlighted ? 'bg-background-70' : ''
+          'pv2 ph2',
+          'f5 lh-solid',
+          index === highlighted ? 'bg-primary-100 text-reversed-100' : ''
         ].join(' ')}
         onMouseOver={this.handleListItemHover(value)}
         onMouseDown={this.handleListItemSelect(value)}
@@ -193,7 +202,7 @@ Select.defaultProps = {
   placeholder: 'Search…',
   value: '',
   options: [],
-  searchable: false,
+  focused: false,
   onHighlight: () => {},
   onBlur: () => {},
   onChange: () => {},
