@@ -14,7 +14,7 @@ export { ChartHoverX } from './charts/ChartHoverX'
 export { LineChart } from './charts/LineChart'
 
 export { Buttons } from './controls/Buttons'
-// export { Select } from './controls/Select'
+export { Select } from './controls/Select'
 
 export { GeoJSONOverlay } from './maps/GeoJSONOverlay'
 export { MapGL } from './maps/MapGL'

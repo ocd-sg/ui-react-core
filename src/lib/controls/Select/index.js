@@ -19,7 +19,10 @@ export type Props = {
   placeholder: string,
   value: string | number | Array<string | number>,
   options: Array<Option>,
-  onChange: Function
+  onHighlight: Function,
+  onBlur: Function,
+  onChange: Function,
+  onCreate: Function
 }
 
 type State = {
@@ -53,10 +56,16 @@ class Select extends PureComponent<Props, State> {
 
   renderInput = () => {
     const { value } = this.state
-    const { placeholder, options } = this.props
+    const { placeholder } = this.props
 
     return (
       <input
+        className={[
+          'w-100 pv1 ph2 outline-0 bn br0',
+          'bg-background-100',
+          'ttu f7 lh-solid',
+          'relative z-1'
+        ].join(' ')}
         ref='input'
         type='text'
         placeholder={placeholder}
@@ -74,7 +83,7 @@ class Select extends PureComponent<Props, State> {
 
     return (
       <div
-        className='absolute bg-background-100 foreground-100 left-0 right-0'
+        className='absolute bg-background-100 foreground-100 left-0 right-0 shadow-1 bt b--foreground-10'
         style={{top: '100%'}}
       >
         {options.map(this.renderListItem)}
@@ -90,8 +99,11 @@ class Select extends PureComponent<Props, State> {
       <div
         key={value}
         className={[
+          'pv1 ph2',
+          'ttu f7 lh-solid',
           index === highlighted ? 'bg-background-70' : ''
         ].join(' ')}
+        onMouseOver={this.handleListItemHover(value)}
         onMouseDown={this.handleListItemSelect(value)}
       >
         {label}
@@ -115,23 +127,31 @@ class Select extends PureComponent<Props, State> {
 
   handleInputKeyDown = (evt) => {
     const { highlighted, options } = this.state
-    const { onChange } = this.props
+    const { onChange, onCreate } = this.props
     const { keyCode } = evt
     if (keyCode === KEY_DOWN) {
-      this.setState({highlighted: typeof highlighted === 'number' ? Math.min(highlighted + 1, options.length - 1) : 0})
+      this.setState({
+        highlighted: typeof highlighted === 'number' ? Math.min(highlighted + 1, options.length - 1) : 0
+      }, () => {
+        this.handleHighlight(options[this.state.highlighted].value)
+      })
       evt.stopPropagation()
       evt.preventDefault()
-    }
-    else if (keyCode === KEY_UP) {
-      this.setState({highlighted: typeof highlighted === 'number' ? Math.max(highlighted - 1, 0) : 0})
+    } else if (keyCode === KEY_UP) {
+      this.setState({
+        highlighted: typeof highlighted === 'number' ? Math.max(highlighted - 1, 0) : 0
+      }, () => {
+        this.handleHighlight(options[this.state.highlighted].value)
+      })
       evt.stopPropagation()
       evt.preventDefault()
-    }
-    if (keyCode === KEY_ENTER) {
+    } else if (keyCode === KEY_ENTER) {
       if (options[highlighted]) {
         const { value } = options[highlighted]
         onChange(value)
         this.refs.input.blur()
+      } else {
+        onCreate(this.refs.input.value)
       }
       evt.stopPropagation()
       evt.preventDefault()
@@ -140,7 +160,7 @@ class Select extends PureComponent<Props, State> {
 
   handleInputChange = (evt) => this.setState({
     value: evt.target.value,
-    options: this.props.options.filter(({ label }) => fuzzysearch(evt.target.value, label))
+    options: this.props.options.filter(({ label }) => fuzzysearch(evt.target.value, label.toLowerCase()))
   })
 
   handleInputFocus = () => this.setState({options: this.props.options})
@@ -149,7 +169,20 @@ class Select extends PureComponent<Props, State> {
     this.setState({
       options: null,
       highlighted: null
-    }, this.setValueFromProps)
+    }, () => {
+      this.setValueFromProps()
+      this.props.onBlur()
+    })
+  }
+
+  handleHighlight = (value) => this.props.onHighlight(value)
+
+  handleListItemHover = (value) => () => {
+    const { options } = this.state
+    this.setState(
+      {highlighted: options.map(({ value }) => value).indexOf(value)},
+      () => this.handleHighlight(value)
+    )
   }
 
   handleListItemSelect = (value) => () => this.props.onChange(value)
@@ -161,7 +194,10 @@ Select.defaultProps = {
   value: '',
   options: [],
   searchable: false,
-  onChange: () => {}
+  onHighlight: () => {},
+  onBlur: () => {},
+  onChange: () => {},
+  onCreate: () => {}
 }
 
 Select.displayName = 'Select'
