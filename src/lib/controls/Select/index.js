@@ -1,6 +1,6 @@
 // @flow
 import React, { PureComponent } from 'react'
-import fuzzysearch from 'fuzzysearch'
+import fuzzysort from 'fuzzysort'
 
 // const KEY_BACKSPACE = 8
 // const KEY_ESC = 27
@@ -61,9 +61,9 @@ class Select extends PureComponent<Props, State> {
     return (
       <input
         className={[
-          'w-100 pv1 ph2 outline-0 bn br0',
-          'bg-background-100',
-          'ttu f7 lh-solid',
+          'w-100 pv1 ph2 bn outline-0 br0',
+          'text-normal-100 bg-foreground-60',
+          'f7 lh-solid',
           'relative z-1'
         ].join(' ')}
         ref='input'
@@ -93,20 +93,32 @@ class Select extends PureComponent<Props, State> {
 
   renderListItem = (item, index) => {
     const { highlighted } = this.state
-    const { label, value } = item
+    const { label, value, highlight } = item
 
     return (
       <div
         key={value}
         className={[
           'pv1 ph2',
-          'ttu f7 lh-solid',
+          'f7 lh-solid',
           index === highlighted ? 'bg-background-70' : ''
         ].join(' ')}
         onMouseOver={this.handleListItemHover(value)}
         onMouseDown={this.handleListItemSelect(value)}
       >
-        {label}
+        {
+          highlight
+            ? highlight.split('>')
+              .map((d) => {
+                const parts = d.split('<')
+                return [
+                  parts[0],
+                  <span className='underline'>{parts[1]}</span>
+                ]
+              })
+              .reduce((memo, d) => memo.concat(d), [])
+            : label
+        }
       </div>
     )
   }
@@ -160,7 +172,17 @@ class Select extends PureComponent<Props, State> {
 
   handleInputChange = (evt) => this.setState({
     value: evt.target.value,
-    options: this.props.options.filter(({ label }) => fuzzysearch(evt.target.value, label.toLowerCase()))
+    // options: this.props.options.filter(({ label }) => fuzzysearch(evt.target.value, label.toLowerCase()))
+    options: fuzzysort
+      .go(
+        evt.target.value,
+        this.props.options,
+        {key: 'label'}
+      )
+      .map((result) => ({
+        ...result.obj,
+        highlight: fuzzysort.highlight(result, '<', '>')
+      }))
   })
 
   handleInputFocus = () => this.setState({options: this.props.options})
