@@ -27,3 +27,19 @@ storiesOf('charts', module)
       </ChartFrame>
     </div>
   ))
+  .add('ChartPanZoom: fit', () => (
+    <div className='aspect-ratio--object'>
+      <ChartFrame>
+        <ChartPanZoom fit={[[100, 100], [200, 200]]}>
+          <rect
+            className='fill-primary-100'
+            x={100}
+            y={100}
+            width={100}
+            height={100}
+          />
+          <ChartDebug />
+        </ChartPanZoom>
+      </ChartFrame>
+    </div>
+  ))

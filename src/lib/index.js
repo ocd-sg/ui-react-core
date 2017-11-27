@@ -10,6 +10,7 @@ export { BarChart } from './charts/BarChart'
 export { ChartAxis } from './charts/ChartAxis'
 export { ChartBrushX } from './charts/ChartBrushX'
 export { ChartFrame } from './charts/ChartFrame'
+export { ChartPanZoom } from './charts/ChartPanZoom'
 export { ChartHoverX } from './charts/ChartHoverX'
 export { LineChart } from './charts/LineChart'
 
