@@ -105,7 +105,8 @@ class ChartFrame extends PureComponent<Props, State> {
         xScale,
         yScale,
         wScale,
-        hScale
+        hScale,
+        svg: this.refs.frame
       })
     ))
 
