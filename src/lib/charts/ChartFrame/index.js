@@ -81,7 +81,7 @@ class ChartFrame extends PureComponent<Props, State> {
 
   render () {
     const { width, height } = this.state
-    const { className, children: _children, xDomain, yDomain, xScaleType, yScaleType } = this.props
+    const { className, children: _children, padding, xDomain, yDomain, xScaleType, yScaleType, ...props } = this.props
     const { xDataType, yDataType } = this.getDataTypes()
     const [ paddingTop, paddingRight, paddingBottom, paddingLeft ] = this.getPaddings()
 
@@ -118,6 +118,7 @@ class ChartFrame extends PureComponent<Props, State> {
           'w-100 h-100 db',
           className
         ].join(' ')}
+        {...props}
       >
         {width && height ? children : null}
       </svg>
