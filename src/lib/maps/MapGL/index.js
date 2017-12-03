@@ -51,6 +51,9 @@ class MapGL extends PureComponent<Props> {
     if (this.props.mapStyle !== nextProps.mapStyle) {
       this.mapElement.setStyle(nextProps.mapStyle)
     }
+    if (nextProps.fit && JSON.stringify(this.props.fit) !== JSON.stringify(nextProps.fit)) {
+      this.mapElement.fitBounds(nextProps.fit)
+    }
   }
 
   componentWillUnmount () {
