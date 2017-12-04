@@ -5,11 +5,11 @@
   "main": "dist/lib.min.js",
   "scripts": {
     "build:lib": "NODE_ENV=production webpack --config webpack.config.build-lib.babel.js",
-    "build:app": "npm run build:app:webpack && npm run build:app:data",
-    "build:app:webpack": "NODE_ENV=production webpack --config webpack.config.build-app.babel.js",
-    "build:app:data": "rm -rf app/data && cp -r scripts/output app/data",
+    "build:app": "NODE_ENV=production build-storybook --config-dir src/app/ -o app",
     "dev": "NODE_ENV=development webpack-dashboard --minimal -- start-storybook --port 9000 --config-dir src/app/",
-    "test": "NODE_ENV=test webpack --config webpack.config.test.babel.js",
+    "test": "NODE_ENV=test ava **/test.js",
+    "test:watch": "npm run test -- --watch",
+    "lint": "eslint ./src",
     "flow": "flow"
   },
   "keywords": [],
