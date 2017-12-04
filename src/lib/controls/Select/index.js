@@ -41,7 +41,7 @@ class Select extends PureComponent<Props, State> {
     this.setValueFromProps()
   }
 
-  componentWillUpdate (props) {
+  componentDidUpdate (props) {
     if (this.props.value !== props.value) this.setValueFromProps()
   }
 
