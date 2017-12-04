@@ -11,7 +11,7 @@ const options = [
 ]
 
 storiesOf('controls.Select', module)
-  .add('(WIP) controlled', () => (
+  .add('(WIP) searchable, controlled', () => (
     <Select
       options={options}
       value={1}

@@ -21,8 +21,8 @@ const ButtonGroup = ({
     ].join(' ')}
   >
     {
-      children.map((child) =>
-        React.cloneElement(child, {_margin: false})
+      children.map((child, index) =>
+        React.cloneElement(child, {key: index, _margin: false})
       )
     }
   </div>

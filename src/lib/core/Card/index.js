@@ -3,24 +3,26 @@ import React from 'react'
 import type { Node, Element } from 'react'
 
 export type Props = {
-  className: string,
   children: Node,
+  className: string,
   header: Node,
-  footer: Node
+  footer: Node,
+  _margin: boolean
 }
 
 const Card = ({
-  className,
   children,
+  className,
   header,
   footer,
+  _margin,
   ...props
 }: Props): Element<any> => (
   <div
     className={[
       'text-normal-100 bg-background-90',
       'br1',
-      className.match('ma0') ? '' : 'ma2',
+      _margin ? 'ma2' : '',
       className
     ].join(' ')}
     {...props}
@@ -50,10 +52,11 @@ const Card = ({
 )
 
 Card.defaultProps = {
-  className: '',
   children: [],
+  className: '',
   header: null,
-  footer: null
+  footer: null,
+  _margin: true
 }
 
 Card.displayName = 'Card'
