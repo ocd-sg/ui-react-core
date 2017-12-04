@@ -3,31 +3,35 @@ import React from 'react'
 import type { Node, Element } from 'react'
 
 export type Props = {
+  children: Node,
   className: string,
-  children: Node
+  _margin: boolean
 }
 
 const ButtonGroup = ({
+  children,
   className,
-  children
+  _margin
 }: Props): Element<any> => (
   <div
     className={[
-      className.match(/mh/) ? '' : 'mh1',
+      'h2',
+      _margin ? 'mh2' : '',
       className
     ].join(' ')}
   >
     {
-      children.map((child, index) =>
-        React.cloneElement(child, {key: index, className: 'mh0'})
+      children.map((child) =>
+        React.cloneElement(child, {_margin: false})
       )
     }
   </div>
 )
 
 ButtonGroup.defaultProps = {
+  children: [],
   className: '',
-  children: []
+  _margin: true
 }
 
 ButtonGroup.displayName = 'ButtonGroup'

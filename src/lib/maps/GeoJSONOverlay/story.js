@@ -22,8 +22,8 @@ const data = {
   }))
 }
 
-storiesOf('maps', module)
-  .add('GeoJSONOverlay: fill', () => {
+storiesOf('maps.GeoJSONOverlay', module)
+  .add('fill', () => {
     const config = {
       id: 'random-polygons',
       type: 'fill',
@@ -53,7 +53,7 @@ storiesOf('maps', module)
       </div>
     )
   })
-  .add('GeoJSONOverlay: line', () => {
+  .add('line', () => {
     const config = {
       id: 'random-lines',
       type: 'line',
@@ -82,7 +82,7 @@ storiesOf('maps', module)
       </div>
     )
   })
-  .add('GeoJSONOverlay: circle', () => {
+  .add('circle', () => {
     const config = {
       id: 'random-circles',
       type: 'circle',

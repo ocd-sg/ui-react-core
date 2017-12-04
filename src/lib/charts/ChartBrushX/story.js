@@ -10,8 +10,8 @@ import BarChart from '../BarChart'
 import LineChart from '../LineChart'
 import Card from '../../core/Card'
 
-storiesOf('charts', module)
-  .add('ChartBrushX: basic', () => {
+storiesOf('charts.ChartBrushX', module)
+  .add('basic', () => {
     const data = Array(10).fill(0).map((_, index) => ({x: index, y: Math.pow(index + 1, 3)}))
     const max = {
       x: data.map(({ x }) => x).reduce((a, b) => Math.max(a, b), 0) + 1,
@@ -34,7 +34,7 @@ storiesOf('charts', module)
       </Card>
     )
   })
-  .add('ChartBrushX: line chart', () => {
+  .add('line chart', () => {
     const data = Array(100).fill(0).map((_, index) => ({x: index, y: Math.pow(index + 1, 3)}))
     const max = {
       x: data.map(({ x }) => x).reduce((a, b) => Math.max(a, b), 0),
@@ -57,7 +57,7 @@ storiesOf('charts', module)
       </Card>
     )
   })
-  .add('ChartBrushX: ordinal', () => {
+  .add('ordinal', () => {
     const data = Array(20).fill(0).map((_, index) => ({x: index, y: Math.pow(index + 1, 3)}))
     const max = {
       y: data.map(({ y }) => y).reduce((a, b) => Math.max(a, b), 0)

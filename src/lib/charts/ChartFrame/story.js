@@ -17,22 +17,22 @@ const ChartDebug = ({ xScale, yScale, wScale, hScale }: {xScale: Function, yScal
   </g>
 )
 
-storiesOf('charts', module)
-  .add('ChartFrame: basic', () => (
+storiesOf('charts.ChartFrame', module)
+  .add('basic', () => (
     <div className='aspect-ratio--object'>
       <ChartFrame>
         <ChartDebug />
       </ChartFrame>
     </div>
   ))
-  .add('ChartFrame: padding 15', () => (
+  .add('padding 15', () => (
     <div className='aspect-ratio--object'>
       <ChartFrame padding={15}>
         <ChartDebug />
       </ChartFrame>
     </div>
   ))
-  .add('ChartFrame: padding [15, 30]', () => (
+  .add('padding [15, 30]', () => (
     <div className='aspect-ratio--object'>
       <ChartFrame padding={[15, 30]}>
         <ChartDebug />

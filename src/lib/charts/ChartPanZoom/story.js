@@ -17,8 +17,8 @@ const ChartDebug = ({ xScale, yScale }: {xScale: Function, yScale: Function}) =>
   ))
 )
 
-storiesOf('charts', module)
-  .add('ChartPanZoom: basic', () => (
+storiesOf('charts.ChartPanZoom', module)
+  .add('basic', () => (
     <div className='aspect-ratio--object'>
       <ChartFrame>
         <ChartPanZoom>
@@ -27,7 +27,7 @@ storiesOf('charts', module)
       </ChartFrame>
     </div>
   ))
-  .add('ChartPanZoom: fit', () => (
+  .add('fit', () => (
     <div className='aspect-ratio--object'>
       <ChartFrame>
         <ChartPanZoom fit={[[100, 100], [200, 200]]}>

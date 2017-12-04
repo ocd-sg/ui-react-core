@@ -4,16 +4,16 @@ import { action } from '@storybook/addon-actions'
 
 import Button from './index'
 
-storiesOf('core', module)
-  .add('Button: default', () => (
+storiesOf('core.Button', module)
+  .add('default', () => (
     <Button label='Default Button' onClick={action('onClick')} />
   ))
-  .add('Button: default (disabled)', () => (
+  .add('default (disabled)', () => (
     <Button label='Default Button (disabled)' disabled onClick={action('onClick')} />
   ))
-  .add('Button: primary', () => (
+  .add('primary', () => (
     <Button label='Primary Button' primary onClick={action('onClick')} />
   ))
-  .add('Button: primary (disabled)', () => (
+  .add('primary (disabled)', () => (
     <Button label='Primary Button (disabled)' primary disabled onClick={action('onClick')} />
   ))

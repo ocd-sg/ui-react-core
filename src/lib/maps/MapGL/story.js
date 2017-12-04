@@ -3,13 +3,13 @@ import { storiesOf } from '@storybook/react'
 
 import MapGL from './index'
 
-storiesOf('maps', module)
-  .add('MapGL', () => (
+storiesOf('maps.MapGL', module)
+  .add('basic', () => (
     <div className='aspect-ratio--object'>
       <MapGL />
     </div>
   ))
-  .add('MapGL: updating fit', () => {
+  .add('updating fit', () => {
     class Stateful extends PureComponent {
       state = {
         fit: null

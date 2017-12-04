@@ -5,8 +5,8 @@ import { action } from '@storybook/addon-actions'
 import ButtonGroup from './index'
 import Button from '../Button'
 
-storiesOf('core', module)
-  .add('ButtonGroup', () => (
+storiesOf('core.ButtonGroup', module)
+  .add('basic', () => (
     <ButtonGroup>
       <Button label='Primary' primary onClick={action('onClick')} />
       <Button label='Default' onClick={action('onClick')} />

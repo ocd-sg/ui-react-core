@@ -10,8 +10,8 @@ const options = [
   {label: 'three', value: 3}
 ]
 
-storiesOf('controls', module)
-  .add('(WIP) Select: controlled', () => (
+storiesOf('controls.Select', module)
+  .add('(WIP) controlled', () => (
     <Select
       options={options}
       value={1}
@@ -20,7 +20,7 @@ storiesOf('controls', module)
       onBlur={action('onBlur')}
     />
   ))
-  .add('(WIP) Select: interactive', () => {
+  .add('(WIP) interactive', () => {
     class Stateful extends PureComponent {
       state = {
         value: null

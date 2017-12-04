@@ -10,10 +10,10 @@ const options = [
   {label: 'three', value: 3}
 ]
 
-storiesOf('controls', module)
-  .add('Buttons: single', () => (
+storiesOf('controls.Buttons', module)
+  .add('single', () => (
     <Buttons options={options} value={1} onChange={action('onChange')} />
   ))
-  .add('Buttons: multiple', () => (
+  .add('multiple', () => (
     <Buttons multiple options={options} value={[1, 2]} onChange={action('onChange')} />
   ))

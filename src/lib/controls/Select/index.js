@@ -61,7 +61,7 @@ class Select extends PureComponent<Props, State> {
     return (
       <input
         className={[
-          'w-100 pv1 ph2 bn outline-0 br0',
+          'w-100 h2 pv1 ph2 bn outline-0 br0',
           'text-normal-100 bg-foreground-60',
           'f7 lh-solid',
           'relative z-1'

@@ -3,8 +3,8 @@ import { storiesOf } from '@storybook/react'
 
 import Tooltip from './index'
 
-storiesOf('core', module)
-  .add('Tooltip', () => (
+storiesOf('core.Tooltip', module)
+  .add('basic', () => (
     <Tooltip opened>
       <p>Hello Sunshine</p>
     </Tooltip>
