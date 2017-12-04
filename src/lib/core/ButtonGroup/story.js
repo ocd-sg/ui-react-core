@@ -14,3 +14,11 @@ storiesOf('core.ButtonGroup', module)
       <Button label='Primary Disabled' primary disabled onClick={action('onClick')} />
     </ButtonGroup>
   ))
+  .add('size: small', () => (
+    <ButtonGroup>
+      <Button label='Primary' size='small' primary onClick={action('onClick')} />
+      <Button label='Default' size='small' onClick={action('onClick')} />
+      <Button label='Disabled' size='small' disabled onClick={action('onClick')} />
+      <Button label='Primary Disabled' size='small' primary disabled onClick={action('onClick')} />
+    </ButtonGroup>
+  ))

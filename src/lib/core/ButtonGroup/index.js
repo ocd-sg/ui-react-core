@@ -15,7 +15,6 @@ const ButtonGroup = ({
 }: Props): Element<any> => (
   <div
     className={[
-      'h2',
       _margin ? 'mh2' : '',
       className
     ].join(' ')}
