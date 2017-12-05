@@ -1,7 +1,9 @@
+export { Bar } from './core/Bar'
 export { Button } from './core/Button'
 export { ButtonGroup } from './core/ButtonGroup'
 export { Card } from './core/Card'
 export { Portal } from './core/Portal'
+export { Text } from './core/Text'
 export { Tooltip } from './core/Tooltip'
 export { Wrapper } from './core/Wrapper'
 
