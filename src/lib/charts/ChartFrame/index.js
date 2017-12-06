@@ -112,13 +112,13 @@ class ChartFrame extends PureComponent<Props, State> {
 
     return (
       <svg
+        {...props}
         xmlns='http://www.w3.org/2000/svg'
         ref='frame'
         className={[
           'w-100 h-100 db',
           className
         ].join(' ')}
-        {...props}
       >
         {width && height ? children : null}
       </svg>

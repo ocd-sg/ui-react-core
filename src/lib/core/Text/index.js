@@ -35,9 +35,11 @@ const Text = ({
   className,
   size,
   weight,
-  transform
+  transform,
+  ...props
 }: Props): Element<any> => (
   <span
+    {...props}
     className={[
       'lh-solid',
       sizes[size],

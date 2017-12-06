@@ -36,9 +36,11 @@ const Button = ({
   disabled,
   size,
   _margin,
-  onClick
+  onClick,
+  ...props
 }: Props): Element<any> => (
   <button
+    {...props}
     className={[
       'pv0 ph2 bn outline-0 br0 text-normal-100',
       sizes.button[size],
