@@ -20,6 +20,14 @@ storiesOf('controls.Select', module)
       onBlur={action('onBlur')}
     />
   ))
+  .add('(WIP) searchable, no options', () => (
+    <Select
+      value={1}
+      onChange={action('onChange')}
+      onHighlight={action('onHighlight')}
+      onBlur={action('onBlur')}
+    />
+  ))
   .add('(WIP) interactive', () => {
     class Stateful extends PureComponent {
       state = {

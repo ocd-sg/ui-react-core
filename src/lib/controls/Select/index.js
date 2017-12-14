@@ -81,14 +81,16 @@ class Select extends PureComponent<Props, State> {
   renderList = () => {
     const { options } = this.state
 
-    return (
-      <div
-        className='absolute bg-background-100 foreground-100 left-0 right-0 shadow-1 bt b--foreground-10'
-        style={{top: '100%'}}
-      >
-        {options.map(this.renderListItem)}
-      </div>
-    )
+    return options && options.length
+      ? (
+        <div
+          className='absolute bg-background-100 foreground-100 left-0 right-0 shadow-1 bt b--foreground-10'
+          style={{top: '100%'}}
+        >
+          {options.map(this.renderListItem)}
+        </div>
+      )
+      : null
   }
 
   renderListItem = (item, index) => {
@@ -141,7 +143,7 @@ class Select extends PureComponent<Props, State> {
     const { highlighted, options } = this.state
     const { onChange, onCreate } = this.props
     const { keyCode } = evt
-    if (keyCode === KEY_DOWN) {
+    if (keyCode === KEY_DOWN && options && options.length) {
       this.setState({
         highlighted: typeof highlighted === 'number' ? Math.min(highlighted + 1, options.length - 1) : 0
       }, () => {
@@ -149,7 +151,7 @@ class Select extends PureComponent<Props, State> {
       })
       evt.stopPropagation()
       evt.preventDefault()
-    } else if (keyCode === KEY_UP) {
+    } else if (keyCode === KEY_UP && options && options.length) {
       this.setState({
         highlighted: typeof highlighted === 'number' ? Math.max(highlighted - 1, 0) : 0
       }, () => {
@@ -161,10 +163,10 @@ class Select extends PureComponent<Props, State> {
       if (options[highlighted]) {
         const { value } = options[highlighted]
         onChange(value)
-        this.refs.input.blur()
       } else {
         onCreate(this.refs.input.value)
       }
+      this.refs.input.blur()
       evt.stopPropagation()
       evt.preventDefault()
     }
