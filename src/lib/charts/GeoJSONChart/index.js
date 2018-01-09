@@ -5,25 +5,29 @@ import * as d3 from 'd3'
 
 export type Props = {
   className: string,
+  xScale: Function,
+  yScale: Function,
   data: Object,
   projection: Function
 }
 
 const GeoJSONChart = ({
   className,
-  width,
-  height,
+  xScale,
+  yScale,
   data,
   projection
 }: Props
 ): Element<any> => {
-  projection.fitSize([width, height], data)
+  projection.fitExtent([
+    [xScale.range()[0], yScale.range()[1]],
+    [xScale.range()[1], yScale.range()[0]]
+  ], data)
   const path = d3.geoPath()
     .projection(projection)
-  console.log(data, path(data))
 
   return (
-    <path className='fill-primary-100 stroke-primary-100' d={path(data)} />
+    <path className='fill-primary-100 stroke-transparent' d={path(data)} />
   )
 }
 

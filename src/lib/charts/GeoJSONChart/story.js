@@ -1,31 +1,18 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
+import { randomPolygon } from '@turf/turf'
 
 import ChartFrame from '../ChartFrame'
 import GeoJSONChart from './index'
 
-const data = {
-  type: 'FeatureCollection',
-  features: Array(10).fill(0).map((_, index) => ({
-    type: 'Feature',
-    properties: { index },
-    geometry: {
-      type: 'Polygon',
-      coordinates: [
-        Array(3).fill(0).map(() => [
-          Math.random() * 20 - 10,
-          Math.random() * 20 - 10
-        ])
-      ]
-    }
-  }))
-}
+const data = randomPolygon(25, { bbox: [Math.random() * -180, Math.random() * -90, Math.random() * 180, Math.random() * 90] })
+data.features = data.features.map((feature, index) => ({ ...feature, properties: { index } }))
 
 storiesOf('charts.GeoJSONChart', module)
-  .add('basic', () => {
+  .add('[WIP] basic', () => {
     return (
-      <div className='w-100 h-100'>
-        <ChartFrame>
+      <div className='absolute top-0 bottom-0 left-0 right-0'>
+        <ChartFrame padding={15}>
           <GeoJSONChart
             data={data}
           />
