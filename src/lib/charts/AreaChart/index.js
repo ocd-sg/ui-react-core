@@ -21,7 +21,7 @@ const AreaChart = ({ className, data: _data, xScale, yScale, wScale, hScale, pri
     })
   const offset = xScale.bandwidth ? xScale.bandwidth() / 2 : 0
 
-  const line = d3.area()
+  const area = d3.area()
     .x(({ x }) => xScale(x) + offset)
     .y0(yScale(0))
     .y1(({ y }) => yScale(y))
@@ -31,7 +31,7 @@ const AreaChart = ({ className, data: _data, xScale, yScale, wScale, hScale, pri
       className
     ].join(' ')}
     >
-      <path className='fill-foreground-90 stroke-transparent' d={line(data)} />
+      <path className='fill-foreground-80 stroke-transparent' d={area(data)} />
     </g>
   )
 }

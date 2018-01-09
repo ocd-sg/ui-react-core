@@ -80,12 +80,12 @@ class ChartAxis extends PureComponent<Props> {
       .attr('transform', transform)
       .call(axis)
     g.selectAll('.domain')
-      .classed('stroke-foreground-30 sr-crispedges', true)
+      .classed('stroke-foreground-10 sr-crispedges', true)
     g.selectAll('.tick line')
-      .classed('stroke-foreground-30 sr-crispedges', true)
+      .classed('stroke-foreground-10 sr-crispedges', true)
       .classed('dn', !ticked)
     g.selectAll('.tick text')
-      .classed('fill-foreground-60', true)
+      .classed('fill-foreground-20', true)
       .classed('dn', !labeled)
   }
 

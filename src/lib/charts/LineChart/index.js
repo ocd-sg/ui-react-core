@@ -30,7 +30,7 @@ const LineChart = ({ className, data: _data, xScale, yScale, wScale, hScale, pri
       className
     ].join(' ')}
     >
-      <path className='fill-transparent stroke-foreground-90' d={line(data)} />
+      <path className='fill-transparent stroke-foreground-80' d={line(data)} />
     </g>
   )
 }
