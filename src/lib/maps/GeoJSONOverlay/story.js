@@ -1,26 +1,13 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
+import { randomPolygon } from '@turf/turf'
 
 import MapGL from '../MapGL'
 import GeoJSONOverlay from './index'
 
-const data = {
-  type: 'FeatureCollection',
-  features: Array(10).fill(0).map((_, index) => ({
-    type: 'Feature',
-    properties: { index },
-    geometry: {
-      type: 'Polygon',
-      coordinates: [
-        Array(3).fill(0).map(() => [
-          Math.random() * 20 - 10,
-          Math.random() * 20 - 10
-        ])
-      ]
-    }
-  }))
-}
+const data = randomPolygon(25, { bbox: [Math.random() * -180, Math.random() * -90, Math.random() * 180, Math.random() * 90] })
+data.features = data.features.map((feature, index) => ({ ...feature, properties: { index } }))
 
 storiesOf('maps.GeoJSONOverlay', module)
   .add('fill', () => {

@@ -88,7 +88,7 @@ MapGL.defaultProps = {
   minZoom: 1,
   maxZoom: 20,
   bbox: [[-180, -90], [180, 90]],
-  mapStyle: 'mapbox://styles/mapbox/dark-v9'
+  mapStyle: 'mapbox://styles/mapbox/light-v9'
 }
 
 MapGL.displayName = 'MapGL'
