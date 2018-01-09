@@ -16,7 +16,7 @@ export type Props = {
   svg: Node
 }
 
-class ChartPanZoom extends PureComponent<Props> {
+class ChartHOCPanZoom extends PureComponent<Props> {
   componentDidMount () {
     const { fit, zoomExtent, width, height, svg } = this.props
     const _svg = d3.select(svg)
@@ -58,13 +58,13 @@ class ChartPanZoom extends PureComponent<Props> {
   handleTransform = () => this._wrapper.attr('transform', d3.event.transform)
 }
 
-ChartPanZoom.defaultProps = {
+ChartHOCPanZoom.defaultProps = {
   fit: null,
   zoomExtent: [1 / 2, 4],
   children: null
 }
 
-ChartPanZoom.displayName = 'ChartPanZoom'
+ChartHOCPanZoom.displayName = 'ChartHOCPanZoom'
 
-export default ChartPanZoom
-export { ChartPanZoom }
+export default ChartHOCPanZoom
+export { ChartHOCPanZoom }

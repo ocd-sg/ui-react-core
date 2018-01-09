@@ -2,8 +2,9 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 
-import ChartPanZoom from './index'
 import ChartFrame from '../ChartFrame'
+import ChartHOCFit from '../ChartHOCFit'
+import ChartHOCPanZoom from './index'
 
 const ChartDebug = ({ xScale, yScale }: {xScale: Function, yScale: Function}) => (
   Array(20).fill(0).map((_, index) => (
@@ -17,20 +18,20 @@ const ChartDebug = ({ xScale, yScale }: {xScale: Function, yScale: Function}) =>
   ))
 )
 
-storiesOf('charts.ChartPanZoom', module)
+storiesOf('charts.ChartHOCPanZoom', module)
   .add('basic', () => (
     <div className='aspect-ratio--object'>
       <ChartFrame>
-        <ChartPanZoom>
+        <ChartHOCPanZoom>
           <ChartDebug />
-        </ChartPanZoom>
+        </ChartHOCPanZoom>
       </ChartFrame>
     </div>
   ))
-  .add('fit', () => (
+  .add('with `fit` prop', () => (
     <div className='aspect-ratio--object'>
       <ChartFrame>
-        <ChartPanZoom fit={[[100, 100], [200, 200]]}>
+        <ChartHOCPanZoom fit={[[100, 100], [200, 200]]}>
           <rect
             className='fill-primary-100'
             x={100}
@@ -39,7 +40,25 @@ storiesOf('charts.ChartPanZoom', module)
             height={100}
           />
           <ChartDebug />
-        </ChartPanZoom>
+        </ChartHOCPanZoom>
+      </ChartFrame>
+    </div>
+  ))
+  .add('with ChartHOCFit', () => (
+    <div className='aspect-ratio--object'>
+      <ChartFrame>
+        <ChartHOCPanZoom>
+          <ChartHOCFit fit={[[100, 100], [200, 200]]}>
+            <rect
+              className='fill-primary-100'
+              x={100}
+              y={100}
+              width={100}
+              height={100}
+            />
+            <ChartDebug />
+          </ChartHOCFit>
+        </ChartHOCPanZoom>
       </ChartFrame>
     </div>
   ))
