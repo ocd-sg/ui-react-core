@@ -1,5 +1,5 @@
 import { configure } from '@storybook/react'
-import 'ui-tachyons-dark'
+import 'ui-tachyons-light'
 
 const req = require.context('../lib', true, /story\.js$/)
 
