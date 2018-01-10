@@ -4,7 +4,7 @@ import { storiesOf } from '@storybook/react'
 
 import ChartAxis from './index'
 import ChartFrame from '../ChartFrame'
-import Card from '../../core/Card'
+import Card, { CardBleed } from '../../core/Card'
 
 storiesOf('charts.ChartAxis', module)
   .add('basic', () => {
@@ -15,17 +15,19 @@ storiesOf('charts.ChartAxis', module)
     }
 
     const config = {
-      padding: [10, 40, 20, 10],
+      padding: [16, 48, 32, 16],
       xDomain: [0, max.x],
       yDomain: [0, max.y]
     }
 
     return (
-      <Card>
-        <ChartFrame {...config}>
-          <ChartAxis position='right' />
-          <ChartAxis position='bottom' />
-        </ChartFrame>
+      <Card className='ma3'>
+        <CardBleed className='h5'>
+          <ChartFrame {...config}>
+            <ChartAxis position='right' />
+            <ChartAxis position='bottom' />
+          </ChartFrame>
+        </CardBleed>
       </Card>
     )
   })
@@ -36,18 +38,20 @@ storiesOf('charts.ChartAxis', module)
     }
 
     const config = {
-      padding: [10, 40, 20, 10],
+      padding: [16, 48, 32, 16],
       xDomain: data.map(({ x }) => x),
       yDomain: [0, max.y],
       xScaleType: 'ordinal'
     }
 
     return (
-      <Card>
-        <ChartFrame {...config}>
-          <ChartAxis position='right' />
-          <ChartAxis position='bottom' />
-        </ChartFrame>
+      <Card className='ma3'>
+        <CardBleed className='h5'>
+          <ChartFrame {...config}>
+            <ChartAxis position='right' />
+            <ChartAxis position='bottom' />
+          </ChartFrame>
+        </CardBleed>
       </Card>
     )
   })

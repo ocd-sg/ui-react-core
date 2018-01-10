@@ -5,7 +5,7 @@ import { storiesOf } from '@storybook/react'
 import BarChart from './index'
 import ChartFrame from '../ChartFrame'
 import ChartAxis from '../ChartAxis'
-import Card from '../../core/Card'
+import Card, { CardBleed } from '../../core/Card'
 
 storiesOf('charts.BarChart', module)
   .add('basic', () => {
@@ -16,18 +16,20 @@ storiesOf('charts.BarChart', module)
     }
 
     const config = {
-      padding: [10, 40, 20, 10],
+      padding: [16, 40, 32, 16],
       xDomain: [0, max.x],
       yDomain: [0, max.y]
     }
 
     return (
-      <Card>
-        <ChartFrame {...config}>
-          <BarChart data={data} />
-          <ChartAxis position='right' />
-          <ChartAxis position='bottom' />
-        </ChartFrame>
+      <Card className='ma3'>
+        <CardBleed className='h5'>
+          <ChartFrame {...config}>
+            <BarChart data={data} />
+            <ChartAxis position='right' />
+            <ChartAxis position='bottom' />
+          </ChartFrame>
+        </CardBleed>
       </Card>
     )
   })
@@ -39,18 +41,20 @@ storiesOf('charts.BarChart', module)
     }
 
     const config = {
-      padding: [10, 40, 20, 10],
+      padding: [16, 64, 32, 16],
       xDomain: [0, max.x],
       yDomain: [0, max.y]
     }
 
     return (
-      <Card>
-        <ChartFrame {...config}>
-          <BarChart data={data} />
-          <ChartAxis position='right' />
-          <ChartAxis position='bottom' />
-        </ChartFrame>
+      <Card className='ma3'>
+        <CardBleed className='h5'>
+          <ChartFrame {...config}>
+            <BarChart data={data} />
+            <ChartAxis position='right' />
+            <ChartAxis position='bottom' />
+          </ChartFrame>
+        </CardBleed>
       </Card>
     )
   })
@@ -61,19 +65,21 @@ storiesOf('charts.BarChart', module)
     }
 
     const config = {
-      padding: [10, 40, 20, 10],
+      padding: [16, 48, 32, 16],
       xDomain: data.map(({ x }) => x),
       yDomain: [0, max.y],
       xScaleType: 'ordinal'
     }
 
     return (
-      <Card>
-        <ChartFrame {...config}>
-          <BarChart data={data} />
-          <ChartAxis position='right' />
-          <ChartAxis position='bottom' />
-        </ChartFrame>
+      <Card className='ma3'>
+        <CardBleed className='h5'>
+          <ChartFrame {...config}>
+            <BarChart data={data} />
+            <ChartAxis position='right' />
+            <ChartAxis position='bottom' />
+          </ChartFrame>
+        </CardBleed>
       </Card>
     )
   })
