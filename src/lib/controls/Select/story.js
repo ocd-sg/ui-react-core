@@ -5,30 +5,64 @@ import { action } from '@storybook/addon-actions'
 import Select from './index'
 
 const options = [
-  {label: 'one', value: 1},
-  {label: 'two', value: 2},
-  {label: 'three', value: 3}
+  {label: 'Item One', value: 1},
+  {label: 'Another Item Two', value: 2},
+  {label: 'Last Item Three', value: 3}
 ]
 
 storiesOf('controls.Select', module)
-  .add('(WIP) searchable, controlled', () => (
+  .add('searchable, controlled', () => (
     <Select
       options={options}
       value={1}
       onChange={action('onChange')}
+      onFocus={action('onFocus')}
       onHighlight={action('onHighlight')}
       onBlur={action('onBlur')}
     />
   ))
-  .add('(WIP) searchable, no options', () => (
+  .add('focused', () => (
     <Select
+      options={options}
+      value={1}
+      focused
+      onChange={action('onChange')}
+      onFocus={action('onFocus')}
+      onHighlight={action('onHighlight')}
+      onBlur={action('onBlur')}
+    />
+  ))
+  .add('searchable, no options', () => (
+    <Select
+      onChange={action('onChange')}
+      onFocus={action('onFocus')}
+      onHighlight={action('onHighlight')}
+      onBlur={action('onBlur')}
+    />
+  ))
+  .add('long list of options', () => (
+    <Select
+      className='w5'
+      options={Array(20).fill(0).map((_, index) => ({ value: index, label: `Item ${index}`, description: `Some description for Item ${index}.` }))}
       value={1}
       onChange={action('onChange')}
+      onFocus={action('onFocus')}
       onHighlight={action('onHighlight')}
       onBlur={action('onBlur')}
     />
   ))
-  .add('(WIP) interactive', () => {
+  .add('options with descriptions', () => (
+    <Select
+      className='w5'
+      options={options.map((option) => ({ ...option, description: `Some description for ${option.label}.` }))}
+      value={1}
+      onChange={action('onChange')}
+      onFocus={action('onFocus')}
+      onHighlight={action('onHighlight')}
+      onBlur={action('onBlur')}
+    />
+  ))
+  .add('interactive', () => {
     class Stateful extends PureComponent {
       state = {
         value: null
@@ -36,7 +70,12 @@ storiesOf('controls.Select', module)
 
       render () {
         return (
-          <Select options={options} value={this.state.value} onChange={this.handleChange} />
+          <Select
+            className='w5'
+            options={options.map((option) => ({ ...option, description: `Some description for ${option.label}.` }))}
+            value={this.state.value}
+            onChange={this.handleChange}
+          />
         )
       }
 

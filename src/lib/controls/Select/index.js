@@ -2,6 +2,8 @@
 import React, { PureComponent } from 'react'
 import fuzzysort from 'fuzzysort'
 
+import Input from '../../core/Input'
+
 // const KEY_BACKSPACE = 8
 // const KEY_ESC = 27
 // const KEY_TAB = 9
@@ -11,6 +13,7 @@ const KEY_DOWN = 40
 
 type Option = {
   label: string,
+  description?: string,
   value: string | number
 }
 
@@ -19,6 +22,8 @@ export type Props = {
   placeholder: string,
   value: string | number | Array<string | number>,
   options: Array<Option>,
+  focused: boolean,
+  onFocus: Function,
   onHighlight: Function,
   onBlur: Function,
   onChange: Function,
@@ -26,23 +31,33 @@ export type Props = {
 }
 
 type State = {
+  focused: boolean,
   value: string,
   focused: boolean
 }
 
 class Select extends PureComponent<Props, State> {
   state = {
+    focused: false,
     value: '',
     options: null,
     highlighted: null
   }
 
+  items = {}
+
   componentDidMount () {
+    this.setFocus()
     this.setValueFromProps()
   }
 
-  componentDidUpdate (props) {
-    if (this.props.value !== props.value) this.setValueFromProps()
+  componentDidUpdate (prevProps) {
+    if (this.props.value !== prevProps.value) this.setValueFromProps()
+  }
+
+  setFocus = () => {
+    const { focused } = this.props
+    this.setState({ focused })
   }
 
   setValueFromProps = () => {
@@ -55,19 +70,18 @@ class Select extends PureComponent<Props, State> {
   }
 
   renderInput = () => {
-    const { value } = this.state
-    const { placeholder } = this.props
+    const { focused, value } = this.state
+    const { className, placeholder } = this.props
 
     return (
-      <input
+      <Input
         className={[
-          'w-100 h2 pv1 ph2 bn outline-0 br0',
-          'text-normal-100 bg-foreground-60',
-          'f7 lh-solid',
-          'relative z-1'
+          'ph3 relative z-1',
+          className
         ].join(' ')}
         ref='input'
         type='text'
+        focused={focused}
         placeholder={placeholder}
         value={value}
         onKeyDown={this.handleInputKeyDown}
@@ -84,8 +98,11 @@ class Select extends PureComponent<Props, State> {
     return options && options.length
       ? (
         <div
-          className='absolute bg-background-100 foreground-100 left-0 right-0 shadow-1 bt b--foreground-10'
-          style={{top: '100%'}}
+          className='absolute bg-background-100 left-0 right-0 overflow-auto'
+          style={{
+            top: '100%',
+            maxHeight: '16rem'
+          }}
         >
           {options.map(this.renderListItem)}
         </div>
@@ -95,31 +112,40 @@ class Select extends PureComponent<Props, State> {
 
   renderListItem = (item, index) => {
     const { highlighted } = this.state
-    const { label, value, highlight } = item
+    const { label, description, value, highlight } = item
 
     return (
       <div
         key={value}
+        ref={(item) => { this.items[value] = item }}
         className={[
-          'pv1 ph2',
-          'f7 lh-solid',
-          index === highlighted ? 'bg-background-70' : ''
+          'pa3 f7 lh-solid bb br bl b--background-80',
+          index === highlighted ? 'bg-primary-100 text-reversed-100' : 'bg-background-90 text-normal-100'
         ].join(' ')}
         onMouseOver={this.handleListItemHover(value)}
         onMouseDown={this.handleListItemSelect(value)}
       >
+        <div
+          className={typeof description === 'string' ? 'pb1 fw6' : ''}
+        >
+          {
+            highlight
+              ? highlight.split('>')
+                .map((d, index) => {
+                  const parts = d.split('<')
+                  return [
+                    parts[0],
+                    <span key={index} className='underline'>{parts[1]}</span>
+                  ]
+                })
+                .reduce((memo, d) => memo.concat(d), [])
+              : label
+          }
+        </div>
         {
-          highlight
-            ? highlight.split('>')
-              .map((d) => {
-                const parts = d.split('<')
-                return [
-                  parts[0],
-                  <span className='underline'>{parts[1]}</span>
-                ]
-              })
-              .reduce((memo, d) => memo.concat(d), [])
-            : label
+          description
+            ? <div className='fw4 lh-title'>{description}</div>
+            : null
         }
       </div>
     )
@@ -127,12 +153,8 @@ class Select extends PureComponent<Props, State> {
 
   render () {
     const { options } = this.state
-    const { className } = this.props
     return (
-      <div className={[
-        'dib relative',
-        className
-      ].join(' ')}>
+      <div className='dib relative'>
         {this.renderInput()}
         {options && this.renderList()}
       </div>
@@ -147,7 +169,9 @@ class Select extends PureComponent<Props, State> {
       this.setState({
         highlighted: typeof highlighted === 'number' ? Math.min(highlighted + 1, options.length - 1) : 0
       }, () => {
-        this.handleHighlight(options[this.state.highlighted].value)
+        const value = options[this.state.highlighted].value
+        this.handleHighlight(value)
+        this.items[value].scrollIntoView()
       })
       evt.stopPropagation()
       evt.preventDefault()
@@ -155,7 +179,9 @@ class Select extends PureComponent<Props, State> {
       this.setState({
         highlighted: typeof highlighted === 'number' ? Math.max(highlighted - 1, 0) : 0
       }, () => {
-        this.handleHighlight(options[this.state.highlighted].value)
+        const value = options[this.state.highlighted].value
+        this.handleHighlight(value)
+        this.items[value].scrollIntoView()
       })
       evt.stopPropagation()
       evt.preventDefault()
@@ -166,28 +192,29 @@ class Select extends PureComponent<Props, State> {
       } else {
         onCreate(this.refs.input.value)
       }
-      this.refs.input.blur()
+      this.setState({ focused: false })
       evt.stopPropagation()
       evt.preventDefault()
     }
   }
 
-  handleInputChange = (evt) => this.setState({
-    value: evt.target.value,
-    // options: this.props.options.filter(({ label }) => fuzzysearch(evt.target.value, label.toLowerCase()))
-    options: fuzzysort
-      .go(
-        evt.target.value,
-        this.props.options,
-        {key: 'label'}
-      )
-      .map((result) => ({
-        ...result.obj,
-        highlight: fuzzysort.highlight(result, '<', '>')
-      }))
+  handleInputChange = (value) => this.setState({
+    value: value,
+    options: value
+      ? fuzzysort
+        .go(
+          value,
+          this.props.options,
+          {key: 'label'}
+        )
+        .map((result) => ({
+          ...result.obj,
+          highlight: fuzzysort.highlight(result, '<', '>')
+        }))
+      : this.props.options
   })
 
-  handleInputFocus = () => this.setState({options: this.props.options})
+  handleInputFocus = () => this.setState({ options: this.props.options, focused: true }, () => this.props.onFocus())
 
   handleInputBlur = () => {
     this.setState({
@@ -199,7 +226,9 @@ class Select extends PureComponent<Props, State> {
     })
   }
 
-  handleHighlight = (value) => this.props.onHighlight(value)
+  handleHighlight = (value) => {
+    this.props.onHighlight(value)
+  }
 
   handleListItemHover = (value) => () => {
     const { options } = this.state
@@ -218,6 +247,8 @@ Select.defaultProps = {
   value: '',
   options: [],
   searchable: false,
+  focused: false,
+  onFocus: () => {},
   onHighlight: () => {},
   onBlur: () => {},
   onChange: () => {},
