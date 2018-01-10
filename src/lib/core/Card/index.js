@@ -30,7 +30,7 @@ const Card = ({
     {
       header
         ? (
-          <div className='text-normal-60 bb b--background-80 pa2 f7'>
+          <div className='text-normal-50 bb b--background-80 pa2 f7'>
             { header }
           </div>
         )
@@ -42,7 +42,7 @@ const Card = ({
     {
       footer
         ? (
-          <div className='text-normal-60 bt b--background-80 pa2 f7'>
+          <div className='text-normal-50 bt b--background-80 pa2 f7'>
             { footer }
           </div>
         )
