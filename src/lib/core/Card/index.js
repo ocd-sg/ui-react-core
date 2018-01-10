@@ -10,44 +10,92 @@ export type Props = {
   _margin: boolean
 }
 
+const CardHeader = ({
+  children,
+  className,
+  ...props
+}: {
+  children: Node,
+  className: string
+}) => (
+  <div
+    {...props}
+    className={[
+      'text-normal-50 bg-background-90 bb b--background-50 pa3 f7',
+      className
+    ].join(' ')}
+  >
+    {children}
+  </div>
+)
+
+const CardFooter = ({
+  children,
+  className,
+  ...props
+}: {
+  children: Node,
+  className: string
+}) => (
+  <div
+    {...props}
+    className={[
+      'text-normal-50 bg-background-90 bt b--background-50 pa3 f7',
+      className
+    ].join(' ')}
+  >
+    {children}
+  </div>
+)
+
+const CardContent = ({
+  children,
+  className,
+  ...props
+}: {
+  children: Node,
+  className: string
+}) => (
+  <div
+    {...props}
+    className={[
+      'pa3 f6',
+      className
+    ].join(' ')}
+  >
+    {children}
+  </div>
+)
+
+const CardBleed = ({
+  children,
+  className,
+  ...props
+}: {
+  children: Node,
+  className: string
+}) => (
+  <div
+    {...props}
+    className={className}
+  >
+    {children}
+  </div>
+)
+
 const Card = ({
   children,
   className,
-  header,
-  footer,
-  _margin,
   ...props
 }: Props): Element<any> => (
   <div
+    {...props}
     className={[
-      'text-normal-100 bg-background-90',
-      'br1',
-      _margin ? 'ma2' : '',
+      'text-normal-100 ba b--background-50 br1 overflow-hidden',
       className
     ].join(' ')}
-    {...props}
   >
-    {
-      header
-        ? (
-          <div className='text-normal-50 bb b--background-80 pa2 f7'>
-            { header }
-          </div>
-        )
-        : null
-    }
-    <div className='w-100 h-100 pa2 f6'>
-      { children }
-    </div>
-    {
-      footer
-        ? (
-          <div className='text-normal-50 bt b--background-80 pa2 f7'>
-            { footer }
-          </div>
-        )
-        : null
-    }
+    {children}
   </div>
 )
 
@@ -62,4 +110,4 @@ Card.defaultProps = {
 Card.displayName = 'Card'
 
 export default Card
-export { Card }
+export { Card, CardHeader, CardFooter, CardContent, CardBleed }
