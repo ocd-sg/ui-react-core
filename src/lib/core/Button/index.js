@@ -8,9 +8,9 @@ export type Props = {
   className: string,
   label: string,
   primary: boolean,
+  secondary: boolean,
   disabled: boolean,
   size: 'small' | 'normal' | 'large',
-  _margin: boolean,
   onClick: Function
 }
 
@@ -33,20 +33,20 @@ const Button = ({
   className,
   label,
   primary,
+  secondary,
   disabled,
   size,
-  _margin,
   onClick,
   ...props
 }: Props): Element<any> => (
   <button
     {...props}
     className={[
-      'pv0 ph2 bn outline-0 br0 text-normal-100',
+      'pv0 ph2 bn outline-0',
       sizes.button[size],
-      primary ? 'bg-primary-100' : 'bg-foreground-60',
-      disabled ? 'o-50' : '',
-      _margin ? 'mh2' : '',
+      primary || secondary ? 'text-reversed-100' : 'text-normal-100',
+      primary ? 'bg-primary-100' : secondary ? 'bg-secondary-100' : 'bg-background-50',
+      disabled ? 'o-20' : '',
       className
     ].join(' ')}
     onClick={disabled ? noop : onClick}
@@ -60,7 +60,6 @@ Button.defaultProps = {
   primary: false,
   disabled: false,
   size: 'normal',
-  _margin: true,
   onClick: () => {}
 }
 
