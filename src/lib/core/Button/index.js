@@ -18,12 +18,12 @@ const noop = () => {}
 
 const sizes = {
   button: {
-    small: 'h1',
-    normal: 'h2',
-    large: 'h2'
+    small: 'ph2 pv1',
+    normal: 'h2 pv0 ph2',
+    large: 'h2 pv0 ph3'
   },
   text: {
-    small: 'extra-small',
+    small: 'small',
     normal: 'small',
     large: 'normal'
   }
@@ -42,7 +42,7 @@ const Button = ({
   <button
     {...props}
     className={[
-      'pv0 ph2 bn outline-0',
+      'bn outline-0',
       sizes.button[size],
       primary || secondary ? 'text-reversed-100' : 'text-normal-100',
       primary ? 'bg-primary-100' : secondary ? 'bg-secondary-100' : 'bg-background-50',

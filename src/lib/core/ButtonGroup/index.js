@@ -11,9 +11,7 @@ const ButtonGroup = ({
   children,
   className
 }: Props): Element<any> => (
-  <div
-    className={className}
-  >
+  <div className={className}>
     {children}
   </div>
 )
