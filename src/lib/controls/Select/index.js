@@ -47,15 +47,16 @@ class Select extends PureComponent<Props, State> {
   items = {}
 
   componentDidMount () {
-    this.setFocus()
+    this.setFocusedFromProps()
     this.setValueFromProps()
   }
 
   componentDidUpdate (prevProps) {
+    if (this.props.focused !== prevProps.focused) this.setFocusedFromProps()
     if (this.props.value !== prevProps.value) this.setValueFromProps()
   }
 
-  setFocus = () => {
+  setFocusedFromProps = () => {
     const { focused } = this.props
     this.setState({ focused })
   }

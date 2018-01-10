@@ -38,7 +38,6 @@ const ChartHOCFit = ({
   fit
 }: Props) => {
   const { scale, translate } = getTransform({ fit, width, height })
-  console.log('rendering ChartHOCFit')
   return (
     <g transform={`translate(${translate.join(',')}) scale(${scale})`}>
       {

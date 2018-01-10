@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 
@@ -18,6 +18,36 @@ storiesOf('core.Input', module)
       onChange={action('onChange')}
     />
   ))
+  .add('delayed focused', () => {
+    class DelayedFocus extends PureComponent {
+      state = {
+        focused: false
+      }
+
+      componentDidMount () {
+        this.timer = setTimeout(() => {
+          this.setState({ focused: true })
+        }, 2 * 1000)
+      }
+
+      componentWillUnmount () {
+        clearTimeout(this.timer)
+      }
+
+      render () {
+        const { focused } = this.state
+        return (
+          <Input
+            value='Disabled'
+            focused={focused}
+            onChange={action('onChange')}
+          />
+        )
+      }
+    }
+
+    return <DelayedFocus />
+  })
   .add('disabled', () => (
     <Input
       value='Disabled'

@@ -62,6 +62,41 @@ storiesOf('controls.Select', module)
       onBlur={action('onBlur')}
     />
   ))
+  .add('delayed focused', () => {
+    class DelayedFocus extends PureComponent {
+      state = {
+        focused: false
+      }
+
+      componentDidMount () {
+        this.timer = setTimeout(() => {
+          this.setState({ focused: true })
+        }, 2 * 1000)
+      }
+
+      componentWillUnmount () {
+        clearTimeout(this.timer)
+      }
+
+      render () {
+        const { focused } = this.state
+        return (
+          <Select
+            className='w5'
+            options={options.map((option) => ({ ...option, description: `Some description for ${option.label}.` }))}
+            value={1}
+            focused={focused}
+            onChange={action('onChange')}
+            onFocus={action('onFocus')}
+            onHighlight={action('onHighlight')}
+            onBlur={action('onBlur')}
+          />
+        )
+      }
+    }
+
+    return <DelayedFocus />
+  })
   .add('interactive', () => {
     class Stateful extends PureComponent {
       state = {
