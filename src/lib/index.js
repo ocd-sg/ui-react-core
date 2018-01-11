@@ -1,7 +1,7 @@
 export { Bar } from './core/Bar'
 export { Button } from './core/Button'
 export { ButtonGroup } from './core/ButtonGroup'
-export { Card } from './core/Card'
+export { Card, CardHeader, CardFooter, CardContent, CardBleed } from './core/Card'
 export { Input } from './core/Input'
 export { Portal } from './core/Portal'
 export { Text } from './core/Text'

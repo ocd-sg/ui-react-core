@@ -109,5 +109,4 @@ Card.defaultProps = {
 
 Card.displayName = 'Card'
 
-export default Card
 export { Card, CardHeader, CardFooter, CardContent, CardBleed }

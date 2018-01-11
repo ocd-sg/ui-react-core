@@ -2,7 +2,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 
-import Card, { CardHeader, CardFooter, CardContent, CardBleed } from './index'
+import { Card, CardHeader, CardFooter, CardContent, CardBleed } from './index'
 import ButtonGroup from '../ButtonGroup'
 import Button from '../Button'
 import ChartFrame from '../../charts/ChartFrame'
