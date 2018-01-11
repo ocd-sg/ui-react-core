@@ -23,6 +23,8 @@ export type Props = {
   value: string | number | Array<string | number>,
   options: Array<Option>,
   focused: boolean,
+  stretch: boolean,
+  block: boolean,
   onFocus: Function,
   onHighlight: Function,
   onBlur: Function,
@@ -33,7 +35,8 @@ export type Props = {
 type State = {
   focused: boolean,
   value: string,
-  focused: boolean
+  options: Array<Option>,
+  highlighted: string
 }
 
 class Select extends PureComponent<Props, State> {
@@ -47,11 +50,12 @@ class Select extends PureComponent<Props, State> {
   items = {}
 
   componentDidMount () {
+    if (this.props.block) this.setState({ options: this.props.options })
     this.setFocusedFromProps()
     this.setValueFromProps()
   }
 
-  componentDidUpdate (prevProps) {
+  componentDidUpdate (prevProps: Props) {
     if (this.props.focused !== prevProps.focused) this.setFocusedFromProps()
     if (this.props.value !== prevProps.value) this.setValueFromProps()
   }
@@ -77,7 +81,7 @@ class Select extends PureComponent<Props, State> {
     return (
       <Input
         className={[
-          'ph3 relative z-1',
+          'relative z-1',
           className
         ].join(' ')}
         ref='input'
@@ -94,10 +98,18 @@ class Select extends PureComponent<Props, State> {
   }
 
   renderList = () => {
+    const { block } = this.props
     const { options } = this.state
 
-    return options && options.length
+    return block
       ? (
+        <div
+          className='h5 bg-background-100 left-0 right-0 overflow-auto'
+        >
+          {(options || []).map(this.renderListItem)}
+        </div>
+      )
+      : (
         <div
           className='absolute bg-background-100 left-0 right-0 overflow-auto'
           style={{
@@ -105,10 +117,9 @@ class Select extends PureComponent<Props, State> {
             maxHeight: '16rem'
           }}
         >
-          {options.map(this.renderListItem)}
+          {(options || []).map(this.renderListItem)}
         </div>
       )
-      : null
   }
 
   renderListItem = (item, index) => {
@@ -124,6 +135,7 @@ class Select extends PureComponent<Props, State> {
           index === highlighted ? 'bg-primary-100 text-reversed-100' : 'bg-background-90 text-normal-100'
         ].join(' ')}
         onMouseOver={this.handleListItemHover(value)}
+        onMouseOut={this.handleListItemHover(null)}
         onMouseDown={this.handleListItemSelect(value)}
       >
         <div
@@ -153,9 +165,15 @@ class Select extends PureComponent<Props, State> {
   }
 
   render () {
+    const { stretch } = this.props
     const { options } = this.state
     return (
-      <div className='dib relative'>
+      <div
+        className={[
+          'dib relative',
+          stretch ? 'w-100' : ''
+        ].join(' ')}
+      >
         {this.renderInput()}
         {options && this.renderList()}
       </div>
@@ -219,7 +237,7 @@ class Select extends PureComponent<Props, State> {
 
   handleInputBlur = () => {
     this.setState({
-      options: null,
+      options: this.props.block ? this.props.options : null,
       highlighted: null
     }, () => {
       this.setValueFromProps()
@@ -234,7 +252,7 @@ class Select extends PureComponent<Props, State> {
   handleListItemHover = (value) => () => {
     const { options } = this.state
     this.setState(
-      {highlighted: options.map(({ value }) => value).indexOf(value)},
+      {highlighted: value === null ? null : options.map(({ value }) => value).indexOf(value)},
       () => this.handleHighlight(value)
     )
   }
@@ -249,6 +267,8 @@ Select.defaultProps = {
   options: [],
   searchable: false,
   focused: false,
+  stretch: false,
+  block: false,
   onFocus: () => {},
   onHighlight: () => {},
   onBlur: () => {},
