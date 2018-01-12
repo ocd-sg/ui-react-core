@@ -4,7 +4,7 @@ import { storiesOf } from '@storybook/react'
 
 import ChartAxis from './index'
 import ChartFrame from '../ChartFrame'
-import Card, { CardBleed } from '../../core/Card'
+import { Card, CardBleed } from '../../core/Card'
 
 storiesOf('charts.ChartAxis', module)
   .add('basic', () => {

@@ -5,7 +5,7 @@ import { storiesOf } from '@storybook/react'
 import AreaChart from './index'
 import ChartFrame from '../ChartFrame'
 import ChartAxis from '../ChartAxis'
-import Card, { CardBleed } from '../../core/Card'
+import { Card, CardBleed } from '../../core/Card'
 
 storiesOf('charts.AreaChart', module)
   .add('chart', () => {

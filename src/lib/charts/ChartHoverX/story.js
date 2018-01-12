@@ -8,7 +8,7 @@ import ChartFrame from '../ChartFrame'
 import ChartAxis from '../ChartAxis'
 import BarChart from '../BarChart'
 import LineChart from '../LineChart'
-import Card, { CardBleed } from '../../core/Card'
+import { Card, CardBleed } from '../../core/Card'
 
 storiesOf('charts.ChartHoverX', module)
   .add('basic', () => {
