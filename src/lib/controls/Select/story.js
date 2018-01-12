@@ -3,6 +3,7 @@ import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 
 import Select from './index'
+import { Card, CardContent } from '../../core/Card'
 
 const options = [
   {label: 'Item One', value: 1},
@@ -61,6 +62,37 @@ storiesOf('controls.Select', module)
       onHighlight={action('onHighlight')}
       onBlur={action('onBlur')}
     />
+  ))
+  .add('stretch', () => (
+    <div className='ma4'>
+      <Select
+        className='w-100'
+        options={options.map((option) => ({ ...option, description: `Some description for ${option.label}.` }))}
+        value={1}
+        stretch
+        onChange={action('onChange')}
+        onFocus={action('onFocus')}
+        onHighlight={action('onHighlight')}
+        onBlur={action('onBlur')}
+      />
+    </div>
+  ))
+  .add('stretch & block', () => (
+    <Card className='ma4'>
+      <CardContent>
+        <Select
+          className='w-100'
+          options={Array(20).fill(0).map((_, index) => ({ value: index, label: `Item ${index}`, description: `Some description for Item ${index}.` }))}
+          value={1}
+          stretch
+          block
+          onChange={action('onChange')}
+          onFocus={action('onFocus')}
+          onHighlight={action('onHighlight')}
+          onBlur={action('onBlur')}
+        />
+      </CardContent>
+    </Card>
   ))
   .add('delayed focused', () => {
     class DelayedFocus extends PureComponent {
