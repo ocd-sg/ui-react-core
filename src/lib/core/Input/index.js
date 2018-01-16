@@ -73,7 +73,6 @@ class Input extends PureComponent<Props> {
 
 Input.defaultProps = {
   className: '',
-  primary: false,
   disabled: false,
   size: 'normal',
   value: '',

@@ -4,10 +4,7 @@ import type { Node, Element } from 'react'
 
 export type Props = {
   children: Node,
-  className: string,
-  header: Node,
-  footer: Node,
-  _margin: boolean
+  className: string
 }
 
 const CardHeader = ({
@@ -101,10 +98,7 @@ const Card = ({
 
 Card.defaultProps = {
   children: [],
-  className: '',
-  header: null,
-  footer: null,
-  _margin: true
+  className: ''
 }
 
 Card.displayName = 'Card'
