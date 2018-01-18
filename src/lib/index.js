@@ -21,6 +21,8 @@ export { LineChart } from './charts/LineChart'
 export { Buttons } from './controls/Buttons'
 export { Select } from './controls/Select'
 
+export { Icon } from './icons/Icon'
+
 export { GeoJSONOverlay } from './maps/GeoJSONOverlay'
 export { MapGL } from './maps/MapGL'
 export { Viewport } from './maps/Viewport'
