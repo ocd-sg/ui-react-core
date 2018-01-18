@@ -1,4 +1,4 @@
-export { Bar } from './core/Bar'
+export { Bar, BarLeft, BarRight } from './core/Bar'
 export { Button } from './core/Button'
 export { ButtonGroup } from './core/ButtonGroup'
 export { Card, CardHeader, CardFooter, CardContent, CardBleed } from './core/Card'
