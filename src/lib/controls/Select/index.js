@@ -23,7 +23,6 @@ export type Props = {
   value: string | number | Array<string | number>,
   options: Array<Option>,
   focused: boolean,
-  stretch: boolean,
   block: boolean,
   onFocus: Function,
   onHighlight: Function,
@@ -131,7 +130,7 @@ class Select extends PureComponent<Props, State> {
         key={value}
         ref={(item) => { this.items[value] = item }}
         className={[
-          'pa3 f7 lh-solid bb br bl b--background-80',
+          'pa3 sans-serif f7 lh-solid bb br bl b--background-80',
           index === highlighted ? 'bg-primary-100 text-reversed-100' : 'bg-background-90 text-normal-100'
         ].join(' ')}
         onMouseOver={this.handleListItemHover(value)}
@@ -165,13 +164,13 @@ class Select extends PureComponent<Props, State> {
   }
 
   render () {
-    const { stretch } = this.props
+    const { className } = this.props
     const { options } = this.state
     return (
       <div
         className={[
-          'dib relative',
-          stretch ? 'w-100' : ''
+          className,
+          'dib relative'
         ].join(' ')}
       >
         {this.renderInput()}
