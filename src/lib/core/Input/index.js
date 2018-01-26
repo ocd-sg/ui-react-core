@@ -4,7 +4,7 @@ import React, { PureComponent } from 'react'
 export type Props = {
   className: string,
   disabled: boolean,
-  size: 'small' | 'normal' | 'large',
+  size: 'none' | 'small' | 'normal' | 'large',
   focused: boolean,
   onChange: Function
 }
@@ -13,11 +13,13 @@ const noop = () => {}
 
 const sizes = {
   input: {
+    none: '',
     small: 'h1',
     normal: 'h2',
     large: 'h2'
   },
   text: {
+    none: '',
     small: 'f8',
     normal: 'f7',
     large: 'f6'
