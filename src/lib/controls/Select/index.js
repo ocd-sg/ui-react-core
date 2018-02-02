@@ -80,7 +80,7 @@ class Select extends PureComponent<Props, State> {
     return (
       <Input
         className={[
-          'relative z-1',
+          'relative',
           className
         ].join(' ')}
         ref='input'
@@ -165,12 +165,13 @@ class Select extends PureComponent<Props, State> {
 
   render () {
     const { className } = this.props
-    const { options } = this.state
+    const { focused, options } = this.state
     return (
       <div
         className={[
           className,
-          'dib relative'
+          'dib relative',
+          focused ? 'z-1' : ''
         ].join(' ')}
       >
         {this.renderInput()}
@@ -236,6 +237,7 @@ class Select extends PureComponent<Props, State> {
 
   handleInputBlur = () => {
     this.setState({
+      focused: false,
       options: this.props.block ? this.props.options : null,
       highlighted: null
     }, () => {

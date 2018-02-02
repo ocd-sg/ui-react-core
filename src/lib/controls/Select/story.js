@@ -33,6 +33,39 @@ storiesOf('controls.Select', module)
       onBlur={action('onBlur')}
     />
   ))
+  .add('stacking and overlap', () => (
+    <React.Fragment>
+      <div className='mb1'>
+        <Select
+          options={options}
+          value={1}
+          focused
+          onChange={action('onChange')}
+          onFocus={action('onFocus')}
+          onHighlight={action('onHighlight')}
+          onBlur={action('onBlur')}
+        />
+      </div>
+      <div className='mb1'>
+        <Select
+          options={options}
+          onChange={action('onChange')}
+          onFocus={action('onFocus')}
+          onHighlight={action('onHighlight')}
+          onBlur={action('onBlur')}
+        />
+      </div>
+      <div className='mb1'>
+        <Select
+          options={options}
+          onChange={action('onChange')}
+          onFocus={action('onFocus')}
+          onHighlight={action('onHighlight')}
+          onBlur={action('onBlur')}
+        />
+      </div>
+    </React.Fragment>
+  ))
   .add('searchable, no options', () => (
     <Select
       onChange={action('onChange')}
