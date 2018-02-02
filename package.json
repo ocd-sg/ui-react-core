@@ -62,6 +62,7 @@
   "dependencies": {
     "d3": "^4.11.0",
     "fuzzysort": "^1.0.2",
-    "mapbox-gl": "^0.41.0"
+    "mapbox-gl": "^0.41.0",
+    "react-maskedinput": "^4.0.1"
   }
 }

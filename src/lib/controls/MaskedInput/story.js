@@ -2,18 +2,20 @@ import React, { PureComponent } from 'react'
 import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 
-import Input from './index'
+import MaskedInput from './index'
 
-storiesOf('core.Input', module)
+storiesOf('controls.MaskedInput', module)
   .add('basic', () => (
-    <Input
-      placeholder='Placeholder Text…'
+    <MaskedInput
+      mask='11/11/1111'
+      placeholder='DD/MM/YYYY'
       onChange={action('onChange')}
     />
   ))
   .add('focused', () => (
-    <Input
-      value='Focused'
+    <MaskedInput
+      mask='11/11/1111'
+      placeholder='DD/MM/YYYY'
       focused
       onChange={action('onChange')}
     />
@@ -37,8 +39,10 @@ storiesOf('core.Input', module)
       render () {
         const { focused } = this.state
         return (
-          <Input
-            value={focused ? 'focused' : 'not focused'}
+          <MaskedInput
+            value={focused ? '11/11/1111' : '00/00/0000'}
+            mask='11/11/1111'
+            placeholder='DD/MM/YYYY'
             focused={focused}
             onChange={action('onChange')}
           />
@@ -49,8 +53,9 @@ storiesOf('core.Input', module)
     return <IntervalFocus />
   })
   .add('disabled', () => (
-    <Input
-      value='Disabled'
+    <MaskedInput
+      mask='11/11/1111'
+      placeholder='DD/MM/YYYY'
       disabled
       onChange={action('onChange')}
     />

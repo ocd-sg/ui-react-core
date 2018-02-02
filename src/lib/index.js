@@ -19,6 +19,7 @@ export { ChartHoverX } from './charts/ChartHoverX'
 export { LineChart } from './charts/LineChart'
 
 export { Buttons } from './controls/Buttons'
+export { MaskedInput } from './controls/MaskedInput'
 export { Select } from './controls/Select'
 
 export { Icon } from './icons/Icon'
